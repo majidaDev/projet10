@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+    <head lang="fr" th:insert="~{template :: head}">
+        <title>Médiathèque</title>
+    </head>
+
+    <body>
+        <header th:insert="~{template :: header}"></header>
+        <div class="container">
+            <div class="row">
+                <div th:if="${messageFail != null}" th:text= "${messageFail}" class="alert alert-warning" role="alert" style="margin: 5px;">
+                </div>
+                <div th:if="${messageSuccess != null}" th:text= "${messageSuccess}" class="alert alert-success" role="alert" style="margin: 5px;">
+                </div>
+                <div class="col-sm-12">
+                    <div class="jumbotron">
+                        <h1 class="display-4">Médiathèque </h1>
+                        <p class="lead">
+                            Consultez vos livres préférés.
+                        </p>
+                    </div>
+                    <div class="col-md-12" id="categories">
+                        <h4>Nos catégories</h4>
+                    </div>
+                    <div class="row border border-primary" xmlns:th="http://www.w3.org/1999/xhtml" style="padding:25px;">
+                        <div th:insert="~{categories :: categoriesInfo}"></div>
+                    </div>
+                    <div class="col-md-12" style="padding-top:35px;" id="searching">
+                        <h4>Un livre ?</h4>
+                    </div>
+                    <div class="row border border-primary" xmlns:th="http://www.w3.org/1999/xhtml">
+                        <div class="card col-md-4 col-lg-4" style="margin:0px;padding:10px;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>
+                                        Par catégorie
+
+                                    </h3>
+                                    <form th:action="@{/searchByCategory/}"
+                                    method='POST' enctype="multipart/form-data"
+                                    content="text/html;charset=UTF-8">
+                                        <label>Catégorie</label>
+                                        <select class="form-control" id="categoryId"  name="categoryId">
+                                            <option>-----</option>
+                                            <option th:each="element : ${categories}" th:value="${element.id}"><p th:text= ${element.name}></p></option>
+                                        </select>
+                                        <input type="submit" value="Valider"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card col-md-4 col-lg-4" style="margin:0px;padding:10px;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>
+                                        Par nom d'auteur
+                                    </h3>
+                                    <form th:action="@{/searchByAuthor/}"
+                                    method='POST' enctype="multipart/form-data"
+                                    content="text/html;charset=UTF-8">
+                                        <input type="text" id="author" name="author" placeholder="Rechercher par nom d'auteur">
+                                        <input type="submit" value="Valider"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card col-md-4 col-lg-4" style="margin:0px;padding:10px;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>
+                                        Par mot clé
+                                    </h3>
+                                    <form th:action="@{/searchByKeyword/}"
+                                          method='POST' enctype="multipart/form-data"
+                                          content="text/html;charset=UTF-8">
+                                        <input type="text" id="keyword" name="keyword" placeholder="Rechercher par mot clé">
+                                        <input type="submit" value="Valider"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:insert="~{template :: footer}"></footer>
+    </body>
+</html>
