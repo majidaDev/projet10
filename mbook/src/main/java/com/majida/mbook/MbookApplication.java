@@ -4,6 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+/*
+Décalere ce microservice comme client doit aller s'enregistrer dans le registre Eureka
+ */
+@EnableDiscoveryClient
 public class MbookApplication {
 
 	public static void main(String[] args) {
