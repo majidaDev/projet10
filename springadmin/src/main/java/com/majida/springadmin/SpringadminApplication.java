@@ -1,15 +1,13 @@
-package com.majida.zuulserver;
+package com.majida.springadmin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@EnableZuulProxy
-@EnableDiscoveryClient
-public class ZuulServerApplication {
+public class SpringadminApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ZuulServerApplication.class, args);
+		SpringApplication.run(SpringadminApplication.class, args);
 	}
 
 }
