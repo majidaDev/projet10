@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+    <head lang="fr" th:fragment="head">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="icon" type="image/png" th:href="@{/images/MML.png}" sizes="32x32" />
+        <title>Bibliothèque au Mille et un Livres</title>
+        <!-- Metadescription nécessaire au SEO -->
+        <meta name="description" content="Médiathèque au Mille et un Livres">
+        <!-- Opengraph -->
+        <meta property="og:title" content="Médiathèque au Mille et un Livres" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="#" />
+        <meta property="og:image" content="#" />
+        <!-- Twitter card -->
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:site' content='@MML' />
+        <meta name='twitter:creator' content='@MML' />
+        <meta name='twitter:title' content="Médiathèque au Mille et un Livres" />
+        <meta name='twitter:description' content="Compte officiel de la Médiathèque au Mille et un Livres" />
+        <meta name='twitter:image' content='#' />
+        <!--******************************** Feuilles de style ********************************-->
+        <!-- FontAwesome -->
+        <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.3.1/css/all.css}" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
+        <!-- Bootstrap CSS et JS -->
+        <link rel="stylesheet"  th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">        <script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js}" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> <!-- Style CSS -->
+        <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
+
+    </head>
+    <body>
+        <header th:fragment="header">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" id="header">
+                <a class="navbar-brand" th:href="@{/}">
+                <img th:src="@{/images/MML.png}" width=150 height=150 alt="Médiathèque au Mille et un Livres" id="imgHeader"/>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/}">
+                            <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/#categories}">
+                                Les catégories
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/#searching}">
+                                Un livre
+                            </a>
+                        </li>
+                        <li th:if="${session.firstname}" class="nav-item">
+                            <a class="nav-link" th:href="@{/person/{path}(path=${session.id})}">
+                                Espace personnel
+                            </a>
+                        </li>
+
+                        <li th:if="${session.firstname == null}" class="nav-item dropdown">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPerson">
+                                S'inscrire
+                            </button>
+                        </li>
+                        <li th:if="${session.firstname == null}" class="nav-item dropdown">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signInForm">
+                                Se connecter
+                                <i class="fas fa-power-off off"></i>
+                            </button>
+                        </li>
+                        <li th:if="${session.firstname}" class="nav-item">
+                            <a class="navbar-brand" th:href="@{/signout}">
+                                <button type="button" class="btn btn-primary" data-toggle="modal">
+                                    Se déconnecter
+                                    <i class="fas fa-power-off on"></i>
+                                </button>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div th:insert="~{subscribeForm :: subForm}"></div>
+            <div th:insert="~{signInForm :: signInF}"></div>
+        </header>
+        <footer th:fragment="footer">
+            <div class="footerContainer">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-12">
+                        <h3>
+                            Médiathèque au Mille et un Livres
+                        </h3>
+                        <p>
+                            Site de la Médiathèque au Mille et un Livres. Retrouvez tous les livres disponibles et gérez vos réservations.
+                        <p>
+                    </div>
+                    <div class="col-lg-3 col-sm-12">
+                        <h3>
+                            Informations
+                        </h3>
+                        <ul>
+                            <li><a class="navbar-brand" th:href="@{/#categories}">Nos catégories</a></li>
+                            <li><a class="navbar-brand" th:href="@{/#searching}">Un livre ?</a></li>
+                            <li th:if="${session.firstname}" class="nav-item">
+                                <a class="navbar-brand" th:href="@{/person/{path}(path=${session.id})}">Espace perso</a>
+                            </li>
+                            <li th:if="${session.firstname == null}" class="nav-item">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signInForm">
+                                    Se connecter
+                                </button>
+                                <div th:insert="~{signInForm :: signInF}"></div>
+                            </li>
+                            <li th:if="${session.firstname}" class="nav-item">
+                                <a class="navbar-brand" th:href="@{/signout}">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal">
+                                        Se déconnecter
+                                    </button>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-sm-12">
+                        <h3>
+                            Nous contacter
+                        </h3>
+                        <p>
+                            <i class="far fa-envelope"></i>
+                            <a href="mailto:test@test.com" target="_blank">
+                                mml@mail.com
+                            </a>
+                        <p>
+                    </div>
+                    <div class="col-lg-3 col-sm-12">
+                        <h3>
+                            Rejoignez nous également sur...
+                        </h3>
+                        <ul>
+                            <li>
+                                <i class="fab fa-twitter-square"></i>
+                                <a href="https://twitter.com" target="_blank">
+                                    Twitter
+                                </a>
+                            </li>
+                            <li>
+                                <i class="fab fa-instagram"></i>
+                                <a href="https://instagram.com" target="_blank">
+                                    Instagram
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script th:src="@{/resources/js/navBar.js}"></script>
+        <script th:src="@{https://cloud.tinymce.com/stable/tinymce.min.js}"></script>
+        <script>tinymce.init({ selector:'textarea' });</script>
+    </body>
+</html>
+

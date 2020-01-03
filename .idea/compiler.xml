@@ -6,16 +6,37 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="mperson" />
+        <module name="eureka-server" />
+        <module name="config-server" />
+        <module name="client-ui" />
+        <module name="springadmin" />
+        <module name="mbook" />
+        <module name="zuul-server" />
+        <module name="mloanmanagement" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="client-ui" target="1.8" />
+      <module name="config-server" target="1.8" />
+      <module name="eureka-server" target="1.8" />
       <module name="mbook" target="1.8" />
-      <module name="mperson" target="1.5" />
+      <module name="mloanmanagement" target="11" />
+      <module name="mperson" target="11" />
+      <module name="springadmin" target="1.8" />
+      <module name="zuul-server" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="client-ui" options="-parameters" />
+      <module name="config-server" options="-parameters" />
+      <module name="eureka-server" options="-parameters" />
       <module name="mbook" options="-parameters" />
+      <module name="mloanmanagement" options="-parameters" />
+      <module name="mperson" options="-parameters" />
+      <module name="springadmin" options="-parameters" />
+      <module name="zuul-server" options="-parameters" />
     </option>
   </component>
 </project>

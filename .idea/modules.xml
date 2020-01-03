@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/client-ui/client-ui.iml" filepath="$PROJECT_DIR$/client-ui/client-ui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/config-server/config-server.iml" filepath="$PROJECT_DIR$/config-server/config-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/eureka-server/eureka-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/mbibliothéque.iml" filepath="$PROJECT_DIR$/.idea/mbibliothéque.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mbook/mbook.iml" filepath="$PROJECT_DIR$/mbook/mbook.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mloanmanagement/mloanmanagement.iml" filepath="$PROJECT_DIR$/mloanmanagement/mloanmanagement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mperson/mperson.iml" filepath="$PROJECT_DIR$/mperson/mperson.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springadmin/springadmin.iml" filepath="$PROJECT_DIR$/springadmin/springadmin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zuul-server/zuul-server.iml" filepath="$PROJECT_DIR$/zuul-server/zuul-server.iml" />
     </modules>
   </component>
 </project>
