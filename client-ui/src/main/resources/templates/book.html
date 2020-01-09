@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head lang="fr" th:insert="~{template :: head}">
+    <title th:text="${book.title}"> - Médiathèque au Mille et un livres</title>
+</head>
+
+<body>
+<header th:insert="~{template :: header}"></header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 th:text= "${book.title}">
+            </h2>
+            <div class="card mb-3" style="margin-top:10px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img th:if="${book.image != null}" th:src="@{${book.image}}"
+                             width="200" height="300" class="card-img-top" alt="...">
+                        <img th:if="${book.image == null}" th:src="@{/images/MML.png}"
+                             width="200" height="300" class="card-img-top" alt="..." />
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${book.title}"></h5>
+                            <p class="card-text" th:text="${book.description}"></p>
+                            <p class="card-text" th:text="${book.author}"></p>
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">N°</th>
+                                    <th>Référence</th>
+                                    <th>Libre</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="copy : ${copies}">
+                                        <th  th:text= "${copyStat.index + 1}" class="col-md-4 my-1"></th>
+                                        <th  th:text= "${copy.referenceNumber}" class="col-md-4 my-1"></th>
+                                        <th>
+                                            <i th:if="${copy.isAvailable}" class="fas fa-check-circle" style="color:green;"></i>
+                                            <i th:if="${copy.isAvailable == 0}" class="fas fa-times-circle" style="color:red;"></i>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="~{template :: footer}"></footer>
+</body>
+</html>

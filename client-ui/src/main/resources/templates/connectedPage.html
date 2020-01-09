@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head lang="fr" th:insert="~{template :: head}">
+    <title>Bibliothèque du Vert Galant</title>
+</head>
+
+<body>
+<header th:insert="~{template :: header}"></header>
+<div class="container">
+    <div th:if="${session.firstname == null}"  class="row">
+        <div class="col-sm-12">
+            <h2>Oups... Veuillez vous connecter :)</h2>
+        </div>
+    </div>
+    <div th:if="${session.firstname != null}"  class="row">
+        <div class="col-sm-12">
+            <h2>Espace personnel de <span th:text="${session.firstname}"></span></h2>
+            <div th:if="${messageSuccess != null}" th:text= "${messageSuccess}" class="alert alert-success" role="alert" style="margin: 5px;">
+            </div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="comments-tab" data-toggle="tab" href="#loans"
+                       role="tab" aria-controls="comments" aria-selected="false">Gérer mes emprunts</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="loans" role="tabpanel" aria-labelledby="loans-tab">
+                    <div class="card mb-3" style="margin-top:10px;">
+                        <div class="row no-gutters">
+                            <div class="col-md-12">
+                                <div class="card-body">
+                                    <div th:if="${#lists.isEmpty(loans)}">Vous n'avez pas d'emprunt pour le moment :)</div>
+                                    <ul>
+                                        <div class=" table-responsive-sm table-responsive-md table-responsive-lg">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Livre</th>
+                                                    <th scope="col">Date de l'emprunt</th>
+                                                    <th scope="col">Prolonger</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="loan : ${loans}">
+                                                        <th scope="row">
+                                                            <a th:href="@{/book/{path}(path=${loan.copy.book.id})}" target="_blank">
+                                                                <p th:text="${loan.copy.book.title}"></p>
+                                                            </a>
+                                                        </th>
+                                                        <td>
+                                                            <p th:text="${loan.date}"></p>
+                                                        </td>
+                                                        <td>
+                                                            <p th:if="${loan.isSecondLoan == 1}">Vous ne pouvez pas emprunter (second emprunt déjà effectué)</p>
+                                                            <p th:if="${loan.isSecondLoan != 1}">
+                                                                <a th:href="@{/extendLoan/{path}(path=${loan.id})}">
+                                                                    <button type="button" class="btn btn-primary">
+                                                                        Prolonger
+                                                                    </button>
+                                                                </a>
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<footer th:insert="~{template :: footer}"></footer>
+</body>
+</html>

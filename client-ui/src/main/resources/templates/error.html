@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head lang="fr" th:insert="~{template :: head}">
+    <title> Oups- Médiathèque au Mille et un livres</title>
+</head>
+
+<body>
+<header th:insert="~{template :: header}"></header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 th:text="${errorMsg}" class="text-center"></h1>
+            <img th:src="@{/images/errorPageImg.jpg}"
+            class="rounded mx-auto d-block" height="500" width="350"
+            alt="Error page image">
+        </div>
+    </div>
+</div>
+<footer th:insert="~{template :: footer}"></footer>
+</body>
+</html>

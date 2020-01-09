@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head lang="fr" th:insert="~{template :: head}">
+    <title>Médiathèque au Mille et un Livres</title>
+</head>
+
+<body>
+<header th:insert="~{template :: header}"></header>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>
+                Résultat des recherches
+            </h2>
+            <div class="card mb-3 border-primary" style="padding:10px;">
+                <div class="row no-gutters">
+                    <div class="col-md-12">
+                        <div class=" table-responsive-sm table-responsive-md table-responsive-lg">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Titre</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Auteur</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:if="${results != null}" th:each="element : ${results}">
+                                        <th scope="row">
+                                            <a th:href="@{/book/{path}(path=${element.id})}"><p th:text="${element.title}"></p></a>
+                                        </th>
+                                        <th th:text="${element.description}"></th>
+                                        <th th:text="${element.author}"></th>
+                                    </tr>
+                                    <p th:if="${results == null}">Pas de résultat...</p>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="~{template :: footer}"></footer>
+</body>
+</html>
