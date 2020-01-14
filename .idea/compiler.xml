@@ -17,10 +17,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="client-ui" target="1.8" />
+      <module name="client-ui" target="11" />
       <module name="config-server" target="1.8" />
       <module name="eureka-server" target="1.8" />
-      <module name="mbook" target="1.8" />
+      <module name="mbook" target="11" />
       <module name="mloanmanagement" target="11" />
       <module name="mperson" target="11" />
       <module name="springadmin" target="1.8" />
