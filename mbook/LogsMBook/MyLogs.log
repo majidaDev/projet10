@@ -1,1 +1,19 @@
-[INFO ] 2020-01-09 19:56:56.242 [main] MbookApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2020-01-31 18:53:06.803 [main] MbookApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2020-01-31 18:53:31.643 [main] MbookApplication - Started MbookApplication in 28.757 seconds (JVM running for 56.369)
+[INFO ] 2020-01-31 18:59:28.898 [http-nio-9090-exec-1] BookController - getBooks was called
+[INFO ] 2020-01-31 18:59:57.384 [http-nio-9090-exec-2] BookController - getBooks was called
+[INFO ] 2020-01-31 18:59:58.157 [http-nio-9090-exec-5] BookController - getCategories was called
+[INFO ] 2020-01-31 18:59:58.637 [http-nio-9090-exec-6] BookController - getBooks was called
+[INFO ] 2020-01-31 18:59:59.017 [http-nio-9090-exec-9] BookController - getCategories was called
+[INFO ] 2020-01-31 19:33:36.838 [http-nio-9090-exec-7] BookController - getBooks was called
+[INFO ] 2020-01-31 19:33:37.446 [http-nio-9090-exec-4] BookController - getCategories was called
+[INFO ] 2020-01-31 19:33:58.848 [http-nio-9090-exec-3] BookController - getBooksByAuthor was called
+[INFO ] 2020-01-31 19:36:30.938 [http-nio-9090-exec-1] BookController - getBooks was called
+[INFO ] 2020-01-31 19:36:31.527 [http-nio-9090-exec-2] BookController - getCategories was called
+[INFO ] 2020-01-31 19:36:36.665 [http-nio-9090-exec-5] BookController - getBooksByAuthor was called
+[INFO ] 2020-01-31 19:36:44.276 [http-nio-9090-exec-6] BookController - getBooks was called
+[INFO ] 2020-01-31 19:36:44.901 [http-nio-9090-exec-9] BookController - getCategories was called
+[INFO ] 2020-01-31 19:37:00.942 [http-nio-9090-exec-10] BookController - getBooks was called
+[INFO ] 2020-01-31 19:37:01.358 [http-nio-9090-exec-8] BookController - getCategories was called
+[INFO ] 2020-01-31 19:37:24.177 [http-nio-9090-exec-7] BookController - getBooks was called
+[INFO ] 2020-01-31 19:37:24.804 [http-nio-9090-exec-4] BookController - getCategories was called

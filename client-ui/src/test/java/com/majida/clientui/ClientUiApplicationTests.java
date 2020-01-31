@@ -1,12 +1,12 @@
 package com.majida.clientui;
 
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class ClientUiApplicationTests {
 
-	@Test
+//	@Test
 	void contextLoads() {
 	}
 
