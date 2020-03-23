@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "person")
+@Table(name ="person")
 public class Person {
 
     @Id
@@ -30,12 +30,6 @@ public class Person {
 
     @Column(name = "is_admin")
     private int isAdmin;
-
-    @ManyToMany(mappedBy = "loanPerson")
-    @OrderBy
-    @JsonIgnore
-    @JsonManagedReference
-    private Set<Loan> loans = new HashSet<Loan>();
 
     public Person() {
     }
@@ -96,11 +90,4 @@ public class Person {
         this.isAdmin = isAdmin;
     }
 
-    public Set<Loan> getLoans() {
-        return loans;
-    }
-
-    public void setLoans(Set<Loan> loans) {
-        this.loans = loans;
-    }
 }

@@ -10,12 +10,12 @@
 <div class="container">
     <div th:if="${session.firstname == null}"  class="row">
         <div class="col-sm-12">
-            <h2>Oups... Veuillez vous connecter :)</h2>
+            <h2> Veuillez vous connecter :)</h2>
         </div>
     </div>
     <div th:if="${session.firstname != null}"  class="row">
         <div class="col-sm-12">
-            <h2>Espace personnel de <span th:text="${session.firstname}"></span></h2>
+            <h2>Bienvenue <span th:text="${session.firstname}"></span></h2>
             <div th:if="${messageSuccess != null}" th:text= "${messageSuccess}" class="alert alert-success" role="alert" style="margin: 5px;">
             </div>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -43,11 +43,11 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr th:each="loan : ${loans}">
-                                                        <th scope="row">
-                                                            <a th:href="@{/book/{path}(path=${loan.copy.book.id})}" target="_blank">
+                                                        <td scope="row">
+                                                        <a th:href="@{/book/{path}(path=${loan.copy.book.id})}" target="_blank">
                                                                 <p th:text="${loan.copy.book.title}"></p>
-                                                            </a>
-                                                        </th>
+                                                          </a>
+                                                        </td>
                                                         <td>
                                                             <p th:text="${loan.date}"></p>
                                                         </td>

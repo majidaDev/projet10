@@ -3,17 +3,21 @@ package com.majida.mbook.controller;
 import com.majida.mbook.entity.Book;
 import com.majida.mbook.entity.Category;
 import com.majida.mbook.entity.Copy;
+import com.majida.mbook.entity.Loan;
 import com.majida.mbook.exception.BookNotFoundException;
 import com.majida.mbook.service.BookService;
 import com.majida.mbook.service.CategoryService;
 import com.majida.mbook.service.CopyService;
+import com.majida.mbook.service.LoanService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
- // Ce Controlleur englobe toutes les méthodes qui répondent au URI de notre microservices
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+// Ce Controlleur englobe toutes les méthodes qui répondent au URI de notre microservices
 @RestController
 public class BookController {
 
@@ -27,6 +31,9 @@ public class BookController {
 
     @Autowired
     private CategoryService categoryService;
+
+     @Autowired
+     private LoanService loanService;
 
     /**
      * Get list of books by category
@@ -191,4 +198,177 @@ public class BookController {
         }
         return books;
     }
+
+    /**
+     * Get all loans by person id
+     * @param personId
+     * @return Set<Loan>
+     */
+    @RequestMapping(value = {"/myLoans/{personId}"}, method = RequestMethod.GET)
+    public List<Loan> getLoansById(@PathVariable Long personId) {
+        LOGGER.info("getLoansById was called");
+        List<Loan> loans;
+        try {
+            loans = loanService.getLoansByPersonId(personId);
+        } catch (Exception e) {
+            LOGGER.error("There is no loans in database with this person id "+personId+" "+e);
+            throw new BookNotFoundException("There is no loans in database with this person id "+personId);
+        }
+
+
+        return loans;
+    }
+    /**
+     * Get all loans
+     * @return List<Loan>
+     */
+    @RequestMapping(value = {"/allLoans"}, method = RequestMethod.GET)
+    public List<Loan> getAllLoans() {
+        LOGGER.info("getAllLoans was called");
+        List<Loan> loans = null;
+        try {
+            loans = loanService.getAllLoans();
+        } catch(Exception e) {
+            LOGGER.error("There is no loans in database "+e);
+            throw new BookNotFoundException("There is no loans in database "+e);
+        }
+        return loans;
+    }
+
+   /* *//**
+     * Get all loans's person
+     * @return List<Person>
+     */
+    @RequestMapping(value = {"/allLoansPersonsLate"}, method = RequestMethod.GET)
+    public List<Integer> getAllLoansPersonsLate() {
+        LOGGER.info("getAllLoansPersons was called");
+
+        List<Loan> allLoans = getAllLoans();
+        List<Integer> persons = new ArrayList<Integer>();
+
+        Date todayDate = new Date();
+
+        for (int i = 0; i < allLoans.size(); i++) {
+            Date loanDate = allLoans.get(i).getDate();
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(todayDate);
+
+            calendar.add(Calendar.DATE, 30);
+
+            Date loanEndingDate = calendar.getTime();
+
+            if (todayDate.compareTo(loanEndingDate) > 0) {
+                LOGGER.info("Sending an email to user");
+                List<Integer> person = null;
+                try {
+                     allLoans.get(i).getId(); //  person = loanPerson(allLoans.get(i).getId());
+                } catch (Exception e) {
+                    LOGGER.error("There isn't person for this loan... " + allLoans.get(i).getIdPerson());
+                    throw new BookNotFoundException("There isn't person for this loan..." + allLoans.get(i).getIdPerson() + ' ' + e);
+                }
+                int personT = person.get(0);
+
+                persons.add(personT);
+            }
+        }
+        return persons;
+    }
+
+    /**
+     * Set a loan by copy id
+     * @param copyId
+     * @return Loan
+     */
+    @RequestMapping(value = {"/loan"}, method = RequestMethod.POST)
+    public Loan setLoan(
+            @RequestParam Long copyId
+    ) {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Copy copy = null;
+        try {
+            copy = copyService.getCopy(copyId).orElseThrow (() ->
+                    new BookNotFoundException("There is no copy in database with this id "+copyId));
+            if(copy.getIsAvailable()==0) {
+                LOGGER.info("This copy "+copyId+" is already loan");
+                return null;
+            }
+            copy.setIsAvailable(1);
+            copyService.updateCopy(copyId, copy);
+        } catch(Exception e) {
+            LOGGER.error("There is no copy in database with this id "+copyId+" "+e);
+        }
+
+        Loan loan = new Loan();
+        loan.setDate(date);
+        loan.setIsSecondLoan(0);
+        loan.setCopy(copy);
+
+        loanService.addLoan(loan);
+
+        return loan;
+    }
+
+    /**
+     * Extend a loan by loan id
+     * @param loanId
+     * @return Loan
+     */
+    @RequestMapping(value = {"/extendLoan/{loanId}"}, method = RequestMethod.POST)
+    public Loan extendLoan(
+            @PathVariable Long loanId
+    ) {
+        Loan loan = null;
+        try {
+            loan = loanService.getLoan(loanId).orElseThrow (() ->
+                    new BookNotFoundException("There is no loan in database with this id "+loanId));
+            if(loan.getIsSecondLoan()==1) {
+                LOGGER.info("This is your second loan, you can't extend anymore");
+                return null;
+            }
+
+            Date date = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            loan.setIsSecondLoan(1);
+            loan.setDate(date);
+            loanService.updateLoan(loanId, loan);
+
+        } catch(Exception e) {
+            LOGGER.error("There is no loan in database with this id "+loanId+" "+e);
+        }
+
+        return loan;
+    }
+    /**
+     * Get Loan's person
+     * @param PersonId
+     * @return
+     */
+    // passer en param userid
+    //
+   @RequestMapping(value = {"/getLoanPerson/{PersonId}"}, method = RequestMethod.GET)
+    public Integer loanPerson(
+            @PathVariable Long PersonId
+    ) {
+        int person;
+        try {
+            Optional<Loan> optionalLoan = loanService.getLoan(PersonId);
+            Loan loan = optionalLoan.get();
+            try {
+                person = loan.getIdPerson();
+            } catch (Exception e) {
+                LOGGER.error("There is no person for this id "+PersonId+" "+e);
+                throw new BookNotFoundException("There is no person for this id "+PersonId+" "+e);
+            }
+        } catch(Exception e) {
+            LOGGER.error("There is no loans for this id "+PersonId+" "+e);
+            throw new BookNotFoundException("There is no loans for this person id "+PersonId+" "+e);
+        }
+
+        return person;
+    }
 }
+
+

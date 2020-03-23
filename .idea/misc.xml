@@ -10,7 +10,6 @@
         <option value="$PROJECT_DIR$/client-ui/pom.xml" />
         <option value="$PROJECT_DIR$/eureka-server/pom.xml" />
         <option value="$PROJECT_DIR$/mbook/pom.xml" />
-        <option value="$PROJECT_DIR$/mloanmanagement/pom.xml" />
         <option value="$PROJECT_DIR$/mperson/pom.xml" />
         <option value="$PROJECT_DIR$/springadmin/pom.xml" />
         <option value="$PROJECT_DIR$/zuul-server/pom.xml" />

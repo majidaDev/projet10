@@ -1,49 +1,31 @@
 package com.majida.mbook.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "person")
 public class Person {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "firstname")
     private String firstname;
 
-    @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "password")
     private String password;
 
-    @Column(name = "is_admin")
-    private int isAdmin;
-
-    @ManyToMany(mappedBy = "loanPerson")
-    @OrderBy
-    @JsonIgnore
-    private Set<Loan> loans = new HashSet<Loan>();
+    private String status;
 
     public Person() {
     }
 
-    public Person(String firstname, String lastname, String email, String password, int isAdmin) {
+    public Person(String firstname, String lastname, String email, String password, String status) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
-        this.isAdmin = isAdmin;
+        this.status = status;
     }
 
     public Long getId() {
@@ -86,19 +68,11 @@ public class Person {
         this.password = password;
     }
 
-    public int getIsAdmin() {
-        return isAdmin;
+    public String getStatus() {
+        return status;
     }
 
-    public void setIsAdmin(int isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-
-    public Set<Loan> getLoans() {
-        return loans;
-    }
-
-    public void setLoans(Set<Loan> loans) {
-        this.loans = loans;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

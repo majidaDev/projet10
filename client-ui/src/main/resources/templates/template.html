@@ -26,7 +26,6 @@
         <!-- Bootstrap CSS et JS -->
         <link rel="stylesheet"  th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">        <script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js}" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> <!-- Style CSS -->
         <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
 
@@ -34,9 +33,6 @@
     <body>
         <header th:fragment="header">
             <nav class="navbar navbar-expand-lg navbar-light bg-light" id="header">
-                <a class="navbar-brand" th:href="@{/}">
-                <img th:src="@{/images/MML.png}" width=150 height=150 alt="Médiathèque au Mille et un Livres" id="imgHeader"/>
-                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -53,30 +49,30 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/#searching}">
-                                Un livre
+                            <a class="nav-link" th:href="@{/#search}">
+                                Rechercher un livre
                             </a>
                         </li>
                         <li th:if="${session.firstname}" class="nav-item">
                             <a class="nav-link" th:href="@{/person/{path}(path=${session.id})}">
-                                Espace personnel
+                                Espace privé
                             </a>
                         </li>
 
                         <li th:if="${session.firstname == null}" class="nav-item dropdown">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPerson">
-                                S'inscrire
+                               Je crée un compte
                             </button>
                         </li>
                         <li th:if="${session.firstname == null}" class="nav-item dropdown">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signInForm">
-                                Se connecter
+                            <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#signInForm">
+                                Je me connecte
                                 <i class="fas fa-power-off off"></i>
                             </button>
                         </li>
                         <li th:if="${session.firstname}" class="nav-item">
                             <a class="navbar-brand" th:href="@{/signout}">
-                                <button type="button" class="btn btn-primary" data-toggle="modal">
+                                <button type="button" class="btn btn-primary" ata-toggle="modal">
                                     Se déconnecter
                                     <i class="fas fa-power-off on"></i>
                                 </button>
@@ -104,8 +100,8 @@
                             Informations
                         </h3>
                         <ul>
-                            <li><a class="navbar-brand" th:href="@{/#categories}">Nos catégories</a></li>
-                            <li><a class="navbar-brand" th:href="@{/#searching}">Un livre ?</a></li>
+                            <li><a class="navbar-brand" th:href="@{/#categories}">Les catégories</a></li>
+                            <li><a class="navbar-brand" th:href="@{/#search}">Rechercher un livre</a></li>
                             <li th:if="${session.firstname}" class="nav-item">
                                 <a class="navbar-brand" th:href="@{/person/{path}(path=${session.id})}">Espace perso</a>
                             </li>
@@ -131,19 +127,25 @@
                         <p>
                             <i class="far fa-envelope"></i>
                             <a href="mailto:test@test.com" target="_blank">
-                                mml@mail.com
+                                mbibliothéque@mail.com
                             </a>
                         <p>
                     </div>
                     <div class="col-lg-3 col-sm-12">
                         <h3>
-                            Rejoignez nous également sur...
+                            Nous suivre
                         </h3>
                         <ul>
                             <li>
                                 <i class="fab fa-twitter-square"></i>
                                 <a href="https://twitter.com" target="_blank">
                                     Twitter
+                                </a>
+                            </li>
+                            <li>
+                                <i class="fab fa-twitter-square"></i>
+                                <a href="https://facebook.com" target="_blank">
+                                    Facebook
                                 </a>
                             </li>
                             <li>

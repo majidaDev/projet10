@@ -23,7 +23,7 @@ public class BatchApplication implements CommandLineRunner {
 	@Autowired
 	JobLauncher jobLauncher;
 
-	@Autowiredd
+	@Autowired
 	Job job;
 
 	public static void main(String[] args)

@@ -2,8 +2,8 @@ package com.majida.clientui.controller;
 
 import com.majida.clientui.entity.Loan;
 import com.majida.clientui.entity.Person;
-import com.majida.clientui.proxies.MicroserviceLoanProxy;
 import com.majida.clientui.proxies.MicroservicePersonProxy;
+import com.majida.clientui.proxies.MicroserviceBookProxy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +26,8 @@ public class UserController {
 
     @Autowired
     private MicroservicePersonProxy microservicePersonProxy;
-
     @Autowired
-    private MicroserviceLoanProxy microserviceLoanProxy;
+    private MicroserviceBookProxy microserviceBookProxy;
 
     /**
      * USER MANAGEMENT
@@ -46,6 +45,7 @@ public class UserController {
     @RequestMapping(value = {"/newPerson"}, method = RequestMethod.POST)
     public ModelAndView setPerson(
             HttpSession session,
+            Model model,
             RedirectAttributes redirectAttributes,
             @RequestParam("firstname") String firstname,
             @RequestParam("lastname") String lastname,
@@ -58,8 +58,8 @@ public class UserController {
                     "messageFail", "Le mot de passe est trop petit");
             return new ModelAndView("redirect:/");
         } else {
-            microservicePersonProxy.setPerson(firstname, lastname, email, password);redirectAttributes.addFlashAttribute(
-                    "messageSuccess", "Inscription finalisée avec succès. Veuillez vous connecter :) ");
+            microservicePersonProxy.setPerson(firstname, lastname, email, password);
+            redirectAttributes.addFlashAttribute("messageSuccess", "Inscription finalisée avec succès. Veuillez vous connecter :) ");
         }
         return new ModelAndView("redirect:/");
     }
@@ -93,7 +93,8 @@ public class UserController {
         session.setAttribute("id", person.getId());
         session.setAttribute("firstname", person.getFirstname());
         session.setAttribute("lastname", person.getLastname());
-
+        redirectAttributes.addFlashAttribute(
+                "messageFail", "Votre Espace Privé :) !");
         return "redirect:/person/"+session.getAttribute("id");
     }
 
@@ -137,7 +138,7 @@ public class UserController {
         Person person = microservicePersonProxy.getPersonPage(id);
         model.addAttribute("person", person);
 
-        List<Loan> loans = microserviceLoanProxy.getLoansById(id);
+        List<Loan> loans = microserviceBookProxy.getLoansById(id);
         model.addAttribute("loans", loans);
 
         return new ModelAndView ("connectedPage");
@@ -158,7 +159,7 @@ public class UserController {
     ) {
         LOGGER.info("get homepage");
 
-        Loan loan = microserviceLoanProxy.extendLoan(loanId);
+        Loan loan = microserviceBookProxy.extendLoan(loanId);
 
         redirectAttributes.addFlashAttribute(
                 "messageSuccess", "Emprunt prolongé avec succès :)");

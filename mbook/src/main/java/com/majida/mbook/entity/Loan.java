@@ -3,6 +3,7 @@ package com.majida.mbook.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,33 +17,27 @@ public class Loan {
     private Long id;
 
     @Column(name = "date")
-    private String date;
+    private Date date;
 
     @Column(name = "is_second")
     private int isSecondLoan;
 
+    @Column(name = "id_person")
+    private int IdPerson;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="copy_id", referencedColumnName = "id")
     @OrderBy
-    @JsonIgnore
     private Copy copy;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "person_borrow",
-            joinColumns = @JoinColumn(name = "loan_id"),
-            inverseJoinColumns = @JoinColumn(name = "person_id"))
-    @OrderBy
-    @JsonIgnore
-    private Set<Person> loanPerson  = new HashSet<Person>();
 
     public Loan() {
     }
 
-    public Loan(String date, int isSecondLoan, Copy copy) {
+    public Loan(Date date, int isSecondLoan, Copy copy, int idPerson) {
         this.date = date;
         this.isSecondLoan = isSecondLoan;
         this.copy = copy;
+        this.IdPerson= idPerson;
     }
 
     public Long getId() {
@@ -53,11 +48,11 @@ public class Loan {
         this.id = id;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -77,11 +72,12 @@ public class Loan {
         this.copy = copy;
     }
 
-    public Set<Person> getLoanPerson() {
-        return loanPerson;
+    public int getIdPerson() {
+        return IdPerson;
     }
 
-    public void setLoanPerson(Set<Person> loanPerson) {
-        this.loanPerson = loanPerson;
+    public void setIdPerson(int idPerson) {
+        this.IdPerson = idPerson;
     }
+
 }

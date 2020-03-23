@@ -6,7 +6,7 @@
     </head>
 
     <body>
-        <header th:insert="~{template :: header}"></header>
+       <header th:insert="~{template :: header}"></header>
         <div class="container">
             <div class="row">
                 <div th:if="${messageFail != null}" th:text= "${messageFail}" class="alert alert-warning" role="alert" style="margin: 5px;">
@@ -17,17 +17,17 @@
                     <div class="jumbotron">
                         <h1 class="display-4">Médiathèque </h1>
                         <p class="lead">
-                            Consultez vos livres préférés.
+                            S'inscrire, Emprunter et Réserver.
                         </p>
                     </div>
                     <div class="col-md-12" id="categories">
-                        <h4>Nos catégories</h4>
+                        <h4>Les catégories</h4>
                     </div>
                     <div class="row border border-primary" xmlns:th="http://www.w3.org/1999/xhtml" style="padding:25px;">
-                        <div th:insert="~{categories :: categoriesInfo}"></div>
+                 <div th:insert="~{categories :: categoriesInfo}"></div>
                     </div>
-                    <div class="col-md-12" style="padding-top:35px;" id="searching">
-                        <h4>Un livre ?</h4>
+                    <div class="col-md-12" style="padding-top:35px;" id="search">
+                        <h3>Rechercher un livre</h3>
                     </div>
                     <div class="row border border-primary" xmlns:th="http://www.w3.org/1999/xhtml">
                         <div class="card col-md-4 col-lg-4" style="margin:0px;padding:10px;">

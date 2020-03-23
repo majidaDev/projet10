@@ -18,7 +18,9 @@ public class ClientUIController {
 
     private static final Logger LOGGER = LogManager.getLogger(ClientUIController.class);
 
-    // créer une instance
+    /**
+     * create instance
+     */
     @Autowired
     private MicroserviceBookProxy microserviceBookProxy;
 

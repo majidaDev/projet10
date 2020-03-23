@@ -24,7 +24,6 @@ public class Copy {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="book_id", referencedColumnName = "id")
     @OrderBy
-    @JsonIgnore
     private Book book;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "copy")

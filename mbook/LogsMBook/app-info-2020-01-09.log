@@ -1,2 +1,18 @@
-[INFO ] 2020-01-19 18:52:13.722 [main] MbookApplication - No active profile set, falling back to default profiles: default
-[INFO ] 2020-01-19 18:52:29.713 [main] MbookApplication - Started MbookApplication in 18.741 seconds (JVM running for 33.159)
+[INFO ] 2020-03-22 13:36:57.144 [main] MbookApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2020-03-22 13:37:12.403 [main] MbookApplication - Started MbookApplication in 18.578 seconds (JVM running for 32.616)
+[INFO ] 2020-03-22 13:38:01.015 [scheduling-1] Batch - getAllLoansPersons was called
+[INFO ] 2020-03-22 13:38:01.315 [scheduling-1] Batch - Sending an email to user
+[INFO ] 2020-03-22 13:38:02.004 [scheduling-1] Batch - Sending an email to user
+[INFO ] 2020-03-22 13:38:02.017 [scheduling-1] Batch - Sending an email to user
+[INFO ] 2020-03-22 13:39:01.026 [scheduling-1] Batch - getAllLoansPersons was called
+[INFO ] 2020-03-22 13:39:01.135 [scheduling-1] Batch - Sending an email to user
+[INFO ] 2020-03-22 13:39:01.189 [scheduling-1] Batch - Sending an email to user
+[INFO ] 2020-03-22 13:39:01.226 [scheduling-1] Batch - Sending an email to user
+[INFO ] 2020-03-22 13:40:01.005 [scheduling-1] Batch - getAllLoansPersons was called
+[INFO ] 2020-03-22 13:40:01.040 [scheduling-1] Batch - Sending an email to user
+[INFO ] 2020-03-22 13:40:01.065 [scheduling-1] Batch - Sending an email to user
+[INFO ] 2020-03-22 13:40:01.078 [scheduling-1] Batch - Sending an email to user
+[INFO ] 2020-03-22 13:41:01.001 [scheduling-1] Batch - getAllLoansPersons was called
+[INFO ] 2020-03-22 13:41:01.043 [scheduling-1] Batch - Sending an email to user
+[INFO ] 2020-03-22 13:41:01.135 [scheduling-1] Batch - Sending an email to user
+[INFO ] 2020-03-22 13:41:01.155 [scheduling-1] Batch - Sending an email to user

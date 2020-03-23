@@ -1,6 +1,0 @@
-[INFO ] 2020-01-31 18:54:10.159 [main] MloanmanagementApplication - No active profile set, falling back to default profiles: default
-[INFO ] 2020-01-31 18:54:31.831 [main] MloanmanagementApplication - Started MloanmanagementApplication in 26.064 seconds (JVM running for 63.932)
-[INFO ] 2020-01-31 19:35:56.948 [http-nio-9092-exec-1] LoanManagementController - getLoansById was called
-[ERROR] 2020-01-31 19:35:57.236 [http-nio-9092-exec-1] LoanManagementController - There is no person in database with this id 1 com.majida.mloanmanagement.exception.LoanNotFoundException: There is no person in database with this id 1
-[INFO ] 2020-01-31 19:36:04.915 [http-nio-9092-exec-2] LoanManagementController - getLoansById was called
-[ERROR] 2020-01-31 19:36:04.932 [http-nio-9092-exec-2] LoanManagementController - There is no person in database with this id 1 com.majida.mloanmanagement.exception.LoanNotFoundException: There is no person in database with this id 1

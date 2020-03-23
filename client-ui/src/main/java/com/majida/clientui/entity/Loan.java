@@ -11,17 +11,18 @@ public class Loan {
 
     private int isSecondLoan;
 
-    private Copy copy;
+    private int IdPerson;
 
-    private Set<Person> loanPerson  = new HashSet<Person>();
+    private Copy copy;
 
     public Loan() {
     }
 
-    public Loan(String date, int isSecondLoan, Copy copy) {
+    public Loan(String date, int isSecondLoan, Copy copy, int idPerson) {
         this.date = date;
         this.isSecondLoan = isSecondLoan;
         this.copy = copy;
+        this.IdPerson= idPerson;
     }
 
     public Long getId() {
@@ -52,15 +53,15 @@ public class Loan {
         return copy;
     }
 
+    public int getIdPerson() {
+        return IdPerson;
+    }
+    public void setIdPerson(int idPerson) {
+        IdPerson = idPerson;
+    }
+
     public void setCopy(Copy copy) {
         this.copy = copy;
     }
 
-    public Set<Person> getLoanPerson() {
-        return loanPerson;
-    }
-
-    public void setLoanPerson(Set<Person> loanPerson) {
-        this.loanPerson = loanPerson;
-    }
 }

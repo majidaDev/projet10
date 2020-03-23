@@ -3,11 +3,9 @@ package com.majida.clientui.proxies;
 import com.majida.clientui.entity.Book;
 import com.majida.clientui.entity.Category;
 import com.majida.clientui.entity.Copy;
+import com.majida.clientui.entity.Loan;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -77,4 +75,38 @@ public interface MicroserviceBookProxy {
      */
     @RequestMapping(value = {"/microservice-book/search"}, method = RequestMethod.POST)
     List<Book> getBooksByKeyword(@RequestParam String keyword);
+
+    /**
+     * Get all loans by person id
+     * @param personId
+     * @return Set<Loan>
+     */
+    @RequestMapping(value = {"/microservice-book/myLoans/{personId}"}, method = RequestMethod.GET)
+    List<Loan> getLoansById(@PathVariable Long personId);
+
+    /**
+     * Get all loans
+     * @return List<Loan>
+     */
+    @RequestMapping(value = {"/microservice-book/allLoans"}, method = RequestMethod.GET)
+    @ResponseBody
+    List<Loan> getAllLoans();
+
+    /**
+     * Set a loan by copy id
+     * @param copyId
+     * @return Loan
+     */
+    @RequestMapping(value = {"/microservice-book/loan"}, method = RequestMethod.POST)
+    Loan setLoan(@RequestParam Long copyId);
+
+    /**
+     * Extend a loan by loan id
+     * @param loanId
+     * @return Loan
+     */
+    @RequestMapping(value = {"/microservice-book/extendLoan/{loanId}"}, method = RequestMethod.POST)
+    Loan extendLoan(@PathVariable Long loanId);
 }
+
+
