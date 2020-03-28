@@ -1,2 +1,7 @@
-[INFO ] 2020-03-22 23:22:56.685 [main] MbookApplication - No active profile set, falling back to default profiles: default
-[INFO ] 2020-03-22 23:23:54.382 [main] MbookApplication - Started MbookApplication in 64.667 seconds (JVM running for 68.118)
+[INFO ] 2020-03-28 14:41:30.886 [main] MbookApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2020-03-28 14:41:43.593 [main] MbookApplication - Started MbookApplication in 15.61 seconds (JVM running for 17.542)
+[INFO ] 2020-03-28 14:42:05.071 [scheduling-1] Batch - getAllLoansPersons was called
+[INFO ] 2020-03-28 14:42:07.768 [scheduling-1] Batch - Sending an email to user
+[INFO ] 2020-03-28 14:42:17.434 [scheduling-1] Batch - Sending an email to user
+[INFO ] 2020-03-28 14:42:17.518 [scheduling-1] Batch - Sending an email to user
+[INFO ] 2020-03-28 14:43:15.819 [scheduling-1] Batch - now Sending an email to user

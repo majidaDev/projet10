@@ -20,7 +20,6 @@
                                 <h5 class="card-title" th:text= "${book.title}"></h5>
                             </a>
                             </a>
-                            <p class="card-text" th:text= "${#strings.substring(book.description,0,80)}+[...]">
                             <a th:href="@{/book/{path}(path=${book.id})}" class="btn btn-primary" target="_blank">Plus d'info ></a>
                         </div>
                     </div>
@@ -40,7 +39,6 @@
                          <a th:href="@{/book/{path}(path=${book.id})}">
                           <h5 class="card-title" th:text= "${book.title}"></h5>
                           </a>
-                       <p class="card-text" th:text= "${#strings.substring(book.description,0,80)}+[...]"></p>
                            <a th:href="@{/book/{path}(path=${book.id})}" class="btn btn-primary" target="_blank">Plus d'info ></a>
                        </div>
                    </div>

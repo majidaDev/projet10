@@ -35,7 +35,7 @@ public class Batch {
     private MicroservicePersonProxy microservicePersonProxy;
 
 
-    @Scheduled(cron= "0 1 1 * * ?")
+    @Scheduled(cron= "1 * * * * ?")
     public void execute()
     {
         List<Person> persons = getAllLoansPersonsLate();
@@ -44,6 +44,7 @@ public class Batch {
             simpleMailMessage.setTo(p.getEmail());
 
             simpleMailMessage.setSubject("Retard dans vos emprunts");
+            LOGGER.info("now Sending an email to user");
             simpleMailMessage.setText(
                     "Bonjour " + p.getFirstname() + " " + p.getLastname() + ", \n\n"
                             + "Vous avez des retards d'emprunt : \n"
@@ -93,7 +94,7 @@ public class Batch {
                     Person p = microservicePersonProxy.getPersonPage(Long.valueOf(allLoans.get(i).getIdPerson()));
                     persons.add(p);
                 } catch (Exception e) {
-                    LOGGER.error("There isn't person for this loan...  "+ allLoans.get(i).getIdPerson() );
+                    LOGGER.error(" so There isn't person for this loan...  "+ allLoans.get(i).getIdPerson() );
                     throw new BookNotFoundException("There isn't person for this loan..." + allLoans.get(i).getIdPerson()  + ' ' + e);
                 }
             }
