@@ -35,21 +35,21 @@ public class Batch {
     private MicroservicePersonProxy microservicePersonProxy;
 
 
-    @Scheduled(cron= "1 * * * * ?")
+    @Scheduled(cron= "0 */1 * * * ?")
     public void execute()
     {
         List<Person> persons = getAllLoansPersonsLate();
         persons.stream().forEach(p -> {
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             simpleMailMessage.setTo(p.getEmail());
-
+            simpleMailMessage.setFrom("biliotheque230@gmail.com");
             simpleMailMessage.setSubject("Retard dans vos emprunts");
             LOGGER.info("now Sending an email to user");
             simpleMailMessage.setText(
                     "Bonjour " + p.getFirstname() + " " + p.getLastname() + ", \n\n"
                             + "Vous avez des retards d'emprunt : \n"
                             + this.getListBook(loanService.getLoansByPersonId(p.getId()))
-                            + "\nMerci de faire le nécessaire pour être en règle. \n"
+                            + "\nMerci de respecter les dates et de retournen les ouvrages. \n"
                             + "\nCordialement, \n\n"
                             + "La direction de la médiathèque au Mille et un Livres."
             );

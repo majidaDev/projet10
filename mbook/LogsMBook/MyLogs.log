@@ -1,12 +1,6 @@
-[INFO ] 2020-03-28 13:26:10.222 [main] MbookApplication - No active profile set, falling back to default profiles: default
-[INFO ] 2020-03-28 13:26:29.295 [main] MbookApplication - Started MbookApplication in 22.942 seconds (JVM running for 35.634)
-[INFO ] 2020-03-28 13:27:01.026 [scheduling-1] Batch - getAllLoansPersons was called
-[INFO ] 2020-03-28 13:27:01.298 [scheduling-1] Batch - Sending an email to user
-[INFO ] 2020-03-28 13:27:02.878 [scheduling-1] Batch - Sending an email to user
-[INFO ] 2020-03-28 13:27:02.990 [scheduling-1] Batch - Sending an email to user
-[INFO ] 2020-03-28 13:27:03.172 [scheduling-1] Batch - now Sending an email to user
-[INFO ] 2020-03-28 13:28:01.003 [scheduling-1] Batch - getAllLoansPersons was called
-[INFO ] 2020-03-28 13:28:01.048 [scheduling-1] Batch - Sending an email to user
-[INFO ] 2020-03-28 13:28:01.120 [scheduling-1] Batch - Sending an email to user
-[INFO ] 2020-03-28 13:28:01.172 [scheduling-1] Batch - Sending an email to user
-[INFO ] 2020-03-28 13:28:01.213 [scheduling-1] Batch - now Sending an email to user
+[INFO ] 2020-03-29 12:24:10.909 [main] MbookApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2020-03-29 12:24:44.730 [main] MbookApplication - Started MbookApplication in 40.283 seconds (JVM running for 54.448)
+[INFO ] 2020-03-29 12:25:12.989 [http-nio-9090-exec-1] BookController - getBooks was called
+[INFO ] 2020-03-29 12:25:13.769 [http-nio-9090-exec-10] BookController - getCategories was called
+[INFO ] 2020-03-29 12:26:31.680 [http-nio-9090-exec-6] BookController - getBooks was called
+[INFO ] 2020-03-29 12:26:31.855 [http-nio-9090-exec-3] BookController - getCategories was called
