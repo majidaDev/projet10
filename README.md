@@ -32,8 +32,8 @@ You have to generate a package for each service we need **(follow the order bell
 |   2    | eureka-server   |    9102     |
 |   3    | zuul-server     |    9004     |
 |   4    | mbook           |    9090     |
-|   6    | mperson         |    9091     |
-|   7    | client-ui       |    9089     |
+|   5    | mperson         |    9091     |
+|   6    | client-ui       |    9089     |
 
 ## Open the application and GO !
 127.0.0.1:9089/
