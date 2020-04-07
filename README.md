@@ -40,6 +40,7 @@ You have to generate a package for each service we need **(follow the order bell
 
 
 # API Testing using Postman ?
+to test the two API loan and retourLoan
 You have two requests in the collection file Postman p7.postman_collection.json
 
 
