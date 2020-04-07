@@ -15,6 +15,8 @@ public class LoanService {
 
     @Autowired
     private LoanRepository loanRepository;
+    @Autowired
+    private  CopyService copyService;
 
     public List<Loan> getAllLoans() {
         List<Loan> loans = new ArrayList<Loan>();
@@ -39,8 +41,13 @@ public class LoanService {
         loanRepository.save(person);
     }
 
-    public void deleteLoan(Long id) {
-        loanRepository.deleteById(id);
+    public void closeLoan(Loan l) {
+        Copy copy = l.getCopy();
+        copy.setIsAvailable(0);
+        int is = copy.getIsAvailable();
+        copyService.updateCopy((Long.valueOf(is)), copy);
+        l.setClose(true);
+        loanRepository.save(l);
     }
 
 

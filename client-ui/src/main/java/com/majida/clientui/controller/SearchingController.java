@@ -38,7 +38,7 @@ public class SearchingController {
             @RequestParam("categoryId") Long categoryId
     ) {
         List<Book> books = microserviceBookProxy.getBooksByCategoryId(categoryId);
-        model.addAttribute("results", books);
+        model.addAttribute("results", books); // pour passer cette liste vers notre template
         return new ModelAndView("results");
     }
 

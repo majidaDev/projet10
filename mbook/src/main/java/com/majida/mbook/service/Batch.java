@@ -1,3 +1,4 @@
+/*
 package com.majida.mbook.service;
 
 
@@ -35,7 +36,7 @@ public class Batch {
     private MicroservicePersonProxy microservicePersonProxy;
 
 
-    @Scheduled(cron= "0 */1 * * * ?")
+    @Scheduled(cron= "0 * * * * ?")
     public void execute()
     {
         List<Person> persons = getAllLoansPersonsLate();
@@ -104,3 +105,4 @@ public class Batch {
 }
 
 
+*/

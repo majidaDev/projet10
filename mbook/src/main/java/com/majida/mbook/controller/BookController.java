@@ -288,7 +288,6 @@ public class BookController {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Copy copy = null;
-        try {
             copy = copyService.getCopy(copyId).orElseThrow (() ->
                     new BookNotFoundException("There is no copy in database with this id "+copyId));
             if(copy.getIsAvailable()==0) {
@@ -297,18 +296,31 @@ public class BookController {
             }
             copy.setIsAvailable(1);
             copyService.updateCopy(copyId, copy);
-        } catch(Exception e) {
-            LOGGER.error("There is no copy in database with this id "+copyId+" "+e);
-        }
+            Loan loan = new Loan();
+            loan.setDate(date);
+            loan.setIsSecondLoan(0);
+            loan.setCopy(copy);
 
-        Loan loan = new Loan();
-        loan.setDate(date);
-        loan.setIsSecondLoan(0);
-        loan.setCopy(copy);
-
-        loanService.addLoan(loan);
+            loanService.addLoan(loan);
 
         return loan;
+    }
+    /**
+     *Retour Loan
+     * @param loanId
+     * @return
+     */
+    @RequestMapping(value = {"/retourLoan/{loanId}"}, method = RequestMethod.POST)
+    public  void retourLoan(
+            @PathVariable Long loanId
+    ) {
+        Copy copy = null;
+        Loan loan = null;
+            loan = loanService.getLoan(loanId).orElseThrow(() ->
+                    new BookNotFoundException("There is no loan in database with this id " + loanId));
+
+            loanService.closeLoan(loan);
+
     }
 
     /**

@@ -25,6 +25,10 @@ public class Loan {
     @Column(name = "id_person")
     private int IdPerson;
 
+    @Column(name = "close")
+    private Boolean close;
+
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="copy_id", referencedColumnName = "id")
     @OrderBy
@@ -78,6 +82,14 @@ public class Loan {
 
     public void setIdPerson(int idPerson) {
         this.IdPerson = idPerson;
+    }
+
+    public Boolean getClose() {
+        return close;
+    }
+
+    public void setClose(Boolean close) {
+        this.close = close;
     }
 
 }

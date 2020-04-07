@@ -1,6 +1,7 @@
 package com.majida.mbook.service;
 
 import com.majida.mbook.entity.Copy;
+import com.majida.mbook.entity.Loan;
 import com.majida.mbook.repository.CopyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class CopyService {
         List<Copy> copies = copyRepository.getAllCopiesByBookId(id);
         return copies;
     }
+
 
     public Optional<Copy> getCopy(Long id) {
         return copyRepository.findById(id);

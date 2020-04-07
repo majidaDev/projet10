@@ -1,6 +1,2 @@
-[INFO ] 2020-03-29 12:24:10.909 [main] MbookApplication - No active profile set, falling back to default profiles: default
-[INFO ] 2020-03-29 12:24:44.730 [main] MbookApplication - Started MbookApplication in 40.283 seconds (JVM running for 54.448)
-[INFO ] 2020-03-29 12:25:12.989 [http-nio-9090-exec-1] BookController - getBooks was called
-[INFO ] 2020-03-29 12:25:13.769 [http-nio-9090-exec-10] BookController - getCategories was called
-[INFO ] 2020-03-29 12:26:31.680 [http-nio-9090-exec-6] BookController - getBooks was called
-[INFO ] 2020-03-29 12:26:31.855 [http-nio-9090-exec-3] BookController - getCategories was called
+[INFO ] 2020-04-07 13:45:55.217 [main] MbookApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2020-04-07 13:46:22.772 [main] MbookApplication - Started MbookApplication in 33.033 seconds (JVM running for 54.378)
