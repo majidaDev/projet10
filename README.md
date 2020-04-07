@@ -37,3 +37,9 @@ You have to generate a package for each service we need **(follow the order bell
 
 ## Open the application and GO !
 127.0.0.1:9089/
+
+
+# API Testing using Postman ?
+You have two requests in the collection file Postman p7.postman_collection.json
+
+

@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "fca62893-8c62-4413-a2dc-6967cbe4952e",
+		"name": "p7",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:9090/retourLoan/7",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "copyId",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:9090/retourLoan/7",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"retourLoan",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:9090/loan",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "copyId",
+							"value": "11",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:9090/loan",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"loan"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
