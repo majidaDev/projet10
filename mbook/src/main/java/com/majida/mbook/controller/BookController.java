@@ -1,9 +1,6 @@
 package com.majida.mbook.controller;
 
-import com.majida.mbook.entity.Book;
-import com.majida.mbook.entity.Category;
-import com.majida.mbook.entity.Copy;
-import com.majida.mbook.entity.Loan;
+import com.majida.mbook.entity.*;
 import com.majida.mbook.exception.BookNotFoundException;
 import com.majida.mbook.service.BookService;
 import com.majida.mbook.service.CategoryService;
@@ -276,34 +273,43 @@ public class BookController {
     }
 
     /**
-     * Set a loan by copy id
-     * @param copyId
+     * Set a loan by book id
+     * @param bookId
      * @return Loan
      */
     @RequestMapping(value = {"/loan"}, method = RequestMethod.POST)
     public Loan setLoan(
-            @RequestParam Long copyId
+            @RequestParam Long bookId
     ) {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        Copy copy = null;
-            copy = copyService.getCopy(copyId).orElseThrow (() ->
-                    new BookNotFoundException("There is no copy in database with this id "+copyId));
-            if(copy.getIsAvailable()==0) {
-                LOGGER.info("This copy "+copyId+" is already loan");
+        List <Copy> copies = copyService.getCopiesByBookIdAndIsAvailable(bookId);
+
+            if (copies.isEmpty()) {
+                LOGGER.info("all copy is already loan");
+                Reservation reservation =null;
+                reservation.setStatus(Status.Waiting);
+                reservation.setBook(getBook(bookId));
+
                 return null;
             }
+            Long copyId =copyService.getIdCopieByBookIdAndIsAvailable(bookId);
+            Copy copy = null;
             copy.setIsAvailable(1);
             copyService.updateCopy(copyId, copy);
             Loan loan = new Loan();
             loan.setDate(date);
             loan.setIsSecondLoan(0);
             loan.setCopy(copy);
+            loan.setStatus(Status.EnCours);
 
             loanService.addLoan(loan);
 
-        return loan;
+            return loan;
+
+
+
     }
     /**
      *Retour Loan
@@ -314,7 +320,6 @@ public class BookController {
     public  void retourLoan(
             @PathVariable Long loanId
     ) {
-        Copy copy = null;
         Loan loan = null;
             loan = loanService.getLoan(loanId).orElseThrow(() ->
                     new BookNotFoundException("There is no loan in database with this id " + loanId));
@@ -345,6 +350,7 @@ public class BookController {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             loan.setIsSecondLoan(1);
             loan.setDate(date);
+            loan.setStatus(Status.Renouvele);
             loanService.updateLoan(loanId, loan);
 
         } catch(Exception e) {

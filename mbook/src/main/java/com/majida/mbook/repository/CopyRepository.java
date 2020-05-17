@@ -16,6 +16,15 @@ public interface CopyRepository extends CrudRepository<Copy, Long> {
     @Query(value = "SELECT * FROM Copy c WHERE c.book_id = ?", nativeQuery = true)
     List<Copy> getAllCopiesByBookId(Long id);
 
+    @Query(value = "SELECT * FROM Copy c WHERE c.book_id = ? and c.isAvailable =0", nativeQuery = true)
+    List<Copy> getAllCopiesByBookIdAndIsAvailable(Long id);
+
+    @Query(value = "id FROM Copy c WHERE c.book_id = ? and c.isAvailable =0", nativeQuery = true)
+    Long getIdCopieByBookIdAndIsAvailable(Long id);
+
+
+
+
 
 
 }

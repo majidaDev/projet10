@@ -1,10 +1,10 @@
-/*
 package com.majida.mbook.service;
 
 
-import com.majida.mbook.entity.Loan;
-import com.majida.mbook.entity.Person;
+import com.majida.mbook.entity.*;
 import com.majida.mbook.proxies.MicroservicePersonProxy;
+import com.majida.mbook.repository.ReservationRepository;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.majida.mbook.exception.BookNotFoundException;
@@ -17,6 +17,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,14 +34,20 @@ public class Batch {
     LoanService loanService;
 
     @Autowired
+    ReservationRepository reservationRepository;
+
+    @Autowired
+    BookService bookService;
+    @Autowired
+    ReservationService reservationService;
+    @Autowired
     private JavaMailSender javaMailSender;
     @Autowired
     private MicroservicePersonProxy microservicePersonProxy;
 
 
-    @Scheduled(cron= "0 * * * * ?")
-    public void execute()
-    {
+    @Scheduled(cron = "0 * * * * ?")
+    public void execute() {
         List<Person> persons = getAllLoansPersonsLate();
         persons.stream().forEach(p -> {
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
@@ -95,14 +104,97 @@ public class Batch {
                     Person p = microservicePersonProxy.getPersonPage(Long.valueOf(allLoans.get(i).getIdPerson()));
                     persons.add(p);
                 } catch (Exception e) {
-                    LOGGER.error(" so There isn't person for this loan...  "+ allLoans.get(i).getIdPerson() );
-                    throw new BookNotFoundException("There isn't person for this loan..." + allLoans.get(i).getIdPerson()  + ' ' + e);
+                    LOGGER.error(" so There isn't person for this loan...  " + allLoans.get(i).getIdPerson());
+                    throw new BookNotFoundException("There isn't person for this loan..." + allLoans.get(i).getIdPerson() + ' ' + e);
                 }
             }
         }
         return persons;
     }
+
+
+    public List<Person> getAllReservationsPersons() {
+        LOGGER.info("getAllReservationsPersons was called");
+
+        List<Book> allBooks = bookService.getAllBooks();
+        List<Person> persons = new ArrayList<Person>();
+
+
+        for (int i = 0; i < allBooks.size(); i++) {
+            List<Reservation> reservations = reservationService.getAllReservationsBookIdOrOrderByDate(allBooks.get(i).getId());
+
+
+            LOGGER.info("sending mail");
+            try {
+                Person p = microservicePersonProxy.getPersonPage(Long.valueOf(reservations.get(i).getIdPerson()));
+                persons.add(p);
+            } catch (Exception e) {
+                LOGGER.error(" so There isn't person for this reservation...  " + reservations.get(i).getIdPerson());
+                throw new BookNotFoundException("There isn't person for this loan..." + reservations.get(i).getIdPerson() + ' ' + e);
+            }
+        }
+        return persons;
+    }
+
+    @Scheduled(cron = "*/60 * * * * *")
+    public void sendReservationMail () {
+
+        List<Reservation> reservationList = reservationRepository.findReservationBySendMailAndStatus(true, Status.Waiting);
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        LocalDate localDate = LocalDate.now();
+
+        if(reservationList.size() > 0) {
+
+            for (Reservation reservation : reservationList) {
+
+                Date dateDeadline = DateUtils.addDays(reservation.getDateMail(), 2);
+
+                Date today = new Date();
+
+                if(today.after(dateDeadline)) {
+
+                    reservationService.deleteReservationAfterMail(reservation.getId());
+
+                    List<Reservation> reservations = reservationRepository.findReservationByBookAndStatusOrderByDateCreate(reservation.getBook(), Status.Waiting);
+
+                    if ( reservations.size() > 0 ) {
+
+                        Reservation reservationMail = reservations.get(0);
+
+                        reservationMail.setDateMail(java.sql.Date.valueOf(localDate));
+
+                        Book book = reservationMail.getBook();
+
+                        Date deadlineReservation = DateUtils.addDays(reservationMail.getDateMail(), 2);
+
+                        Person person = microservicePersonProxy.getPersonPage(Long.valueOf(reservationMail.getIdPerson()));
+                        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+                        simpleMailMessage.setTo(person.getEmail());
+                        simpleMailMessage.setFrom("biliotheque230@gmail.com");
+                        simpleMailMessage.setSubject("Réservation disponible");
+                        LOGGER.info("now Sending an email to user");
+                        simpleMailMessage.setText( "Bonjour " + person.getFirstname() + " " + person.getLastname() + "," +
+                                "\n\nNous vous informons que la réservation du Livre ci-dessous est disponible : " +
+                                "\n\n" + book.getTitle() +
+                                "\n\nVous avez jusqu'au " + dateFormat.format(deadlineReservation) + " pour venir récupérer votre livre." +
+                                "\n\nPassée cette date, le document sera remis en disponibilité." +
+                                "\n\nCordialement," +
+                                "\n\nL'équipe de la Bibliothèque");
+
+
+                        javaMailSender.send(simpleMailMessage);
+                        reservationMail.setSendMail(true);
+
+                        reservationRepository.save(reservationMail);
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 
-*/
+

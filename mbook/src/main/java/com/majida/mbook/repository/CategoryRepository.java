@@ -11,4 +11,5 @@ import java.util.Set;
 public interface CategoryRepository extends CrudRepository<Category, Long> {
 
     List<Category> findAllByOrderByIdAsc();
+    List<Category> findAll();
 }

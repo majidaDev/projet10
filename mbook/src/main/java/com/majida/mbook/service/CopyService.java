@@ -25,7 +25,14 @@ public class CopyService {
         List<Copy> copies = copyRepository.getAllCopiesByBookId(id);
         return copies;
     }
-
+    public List<Copy> getCopiesByBookIdAndIsAvailable(Long id) {
+        List<Copy> copies = copyRepository.getAllCopiesByBookIdAndIsAvailable(id);
+        return copies;
+    }
+    public Long getIdCopieByBookIdAndIsAvailable(Long id){
+        Long idcopy =copyRepository.getIdCopieByBookIdAndIsAvailable(id);
+        return idcopy;
+    }
 
     public Optional<Copy> getCopy(Long id) {
         return copyRepository.findById(id);

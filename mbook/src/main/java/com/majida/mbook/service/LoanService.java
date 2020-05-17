@@ -1,8 +1,8 @@
 package com.majida.mbook.service;
 
-import com.majida.mbook.entity.Copy;
-import com.majida.mbook.entity.Loan;
+import com.majida.mbook.entity.*;
 import com.majida.mbook.repository.LoanRepository;
+import com.majida.mbook.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,11 @@ public class LoanService {
     @Autowired
     private LoanRepository loanRepository;
     @Autowired
+    private ReservationRepository reservationRepository;
+    @Autowired
     private  CopyService copyService;
+    @Autowired
+    private ReservationService reservationService;
 
     public List<Loan> getAllLoans() {
         List<Loan> loans = new ArrayList<Loan>();
@@ -41,13 +45,17 @@ public class LoanService {
         loanRepository.save(person);
     }
 
-    public void closeLoan(Loan l) {
+    public Book closeLoan(Loan l) {
         Copy copy = l.getCopy();
+        Book bookretourne =copy.getBook();
+        List<Reservation> reservations = reservationRepository.findReservationByBookAndStatusOrderByDateCreate(bookretourne,Status.Waiting);
         copy.setIsAvailable(0);
         int is = copy.getIsAvailable();
         copyService.updateCopy((Long.valueOf(is)), copy);
-        l.setClose(true);
+        l.setStatus(Status.Terminate);
         loanRepository.save(l);
+        return bookretourne;
+
     }
 
 

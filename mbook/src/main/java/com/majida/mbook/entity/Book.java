@@ -40,9 +40,32 @@ public class Book {
     @OrderBy
     private Set<Category> bookCategories  = new HashSet<Category>();
 
+    @OneToMany(mappedBy = "book")
+    private Set<Reservation> reservations;
+
+    @Transient
+    private String nearestDeadline;
+
+    @Transient
+    private Integer numberOfBooking;
+
+    @Transient
+    private Boolean isReservation;
+
     public Book() {
     }
 
+
+    public Boolean isavailableBook() {
+        Boolean avaibleBook = false;
+        for (Copy bookCopy : copies) {
+            if (bookCopy.getIsAvailable() == 0) {
+                avaibleBook = true;
+                break;
+            }
+        }
+        return avaibleBook;
+    }
     public Book(String title, String description, String author, String image, Set<Copy> copies, Set<Category> bookCategories) {
         this.title = title;
         this.description = description;
@@ -106,5 +129,37 @@ public class Book {
 
     public void setBookCategories(Set<Category> bookCategories) {
         this.bookCategories = bookCategories;
+    }
+
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public String getNearestDeadline() {
+        return nearestDeadline;
+    }
+
+    public void setNearestDeadline(String nearestDeadline) {
+        this.nearestDeadline = nearestDeadline;
+    }
+
+    public Integer getNumberOfBooking() {
+        return numberOfBooking;
+    }
+
+    public void setNumberOfBooking(Integer numberOfBooking) {
+        this.numberOfBooking = numberOfBooking;
+    }
+
+    public Boolean getReservation() {
+        return isReservation;
+    }
+
+    public void setReservation(Boolean reservation) {
+        isReservation = reservation;
     }
 }

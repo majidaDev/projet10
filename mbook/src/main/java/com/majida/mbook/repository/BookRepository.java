@@ -16,4 +16,6 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
     @Query(value = "SELECT * FROM Book b WHERE b.title LIKE CONCAT('%',:keyword,'%') OR b.author LIKE CONCAT('%',:keyword,'%') OR b.description LIKE CONCAT('%',:keyword,'%')", nativeQuery = true)
     List<Book> findByKeywordLike(@Param("keyword") String keyword);
+@Query(value = "SELECT b FROM  Book b where b.id =?",nativeQuery =true)
+    Book findBookById(Long id);
 }

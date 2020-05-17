@@ -25,8 +25,9 @@ public class Loan {
     @Column(name = "id_person")
     private int IdPerson;
 
-    @Column(name = "close")
-    private Boolean close;
+    @Column(name="status")
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -84,12 +85,12 @@ public class Loan {
         this.IdPerson = idPerson;
     }
 
-    public Boolean getClose() {
-        return close;
+
+    public Status getStatus() {
+        return status;
     }
 
-    public void setClose(Boolean close) {
-        this.close = close;
+    public void setStatus(Status status) {
+        this.status = status;
     }
-
 }

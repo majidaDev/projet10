@@ -30,8 +30,8 @@ public class BookService {
         return books;
     }
 
-    public Optional<Book> getBook(Long id) {
-        return bookRepository.findById(id);
+    public Book getBook(Long id) {
+        return bookRepository.findBookById(id);
     }
 
     public void addBook(Book book) {
