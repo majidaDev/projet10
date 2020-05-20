@@ -21,6 +21,25 @@
                         <img th:if="${book.image == null}" th:src="@{/images/MML.png}"
                              width="200" height="300" class="card-img-top" alt="..." />
                     </div>
+                    <span th:if="${book.isAvaibleBook == true and book.reservationBook != true}">
+			</span>
+                    <div class="col-12" th:unless="${book.isAvaibleBook == true and book.reservationBook != true}">
+                        <div class="row col-12 justify-content-between">
+                            <h4>Réservation</h4>
+                            <form th:action="@{/reservation/${book.id}/add-reservation}" method="post">
+                                <div class="text-center">
+                                    <input type="submit" class="btn btn-dark btn-sm" id="submit" name="submit" value="Réserver ce livre">
+                                </div>
+                            </form>
+                        </div>
+                        <hr>
+                        <p class="mb-1" th:switch="${book.nearestreturnDate}">
+                            <span th:case="'01/01/2001'"></span>
+                            <span th:case="*"> Date prochaine de fin de prêt : <span th:text="${book.nearestreturnDate}"></span></span>
+                        </p>
+                        <p class="mb-1">Nombre de personnes ayant réservé ce livre : <span th:text="${book.maxNumberOfReservation}"></span></p>
+                        <br/>
+                    </div>
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${book.title}"></h5>
@@ -35,14 +54,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="copy : ${copies}">
-                                        <th  th:text= "${copyStat.index + 1}" class="col-md-4 my-1"></th>
-                                        <th  th:text= "${copy.referenceNumber}" class="col-md-4 my-1"></th>
-                                        <th>
-                                            <i th:if="${copy.isAvailable}" class="fas fa-check-circle" style="color:green;"></i>
-                                            <i th:if="${copy.isAvailable == 0}" class="fas fa-times-circle" style="color:red;"></i>
-                                        </th>
-                                    </tr>
+                                <tr th:each="copy : ${copies}">
+                                    <th  th:text= "${copyStat.index + 1}" class="col-md-4 my-1"></th>
+                                    <th  th:text= "${copy.referenceNumber}" class="col-md-4 my-1"></th>
+                                    <th>
+                                        <i th:if="${copy.isAvailable}" class="fas fa-check-circle" style="color:green;"></i>
+                                        <i th:if="${copy.isAvailable == 0}" class="fas fa-times-circle" style="color:red;"></i>
+                                    </th>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

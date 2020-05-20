@@ -33,6 +33,18 @@
                                         <th th:text="${element.description}"></th>
                                         <th th:text="${element.author}"></th>
                                     </tr>
+<!--                                    <span th:if="${book.isAvaibleBook == true}">-->
+										<span th:if="${book.isReservation == true}">
+											<small class ="booking">Réservé</small>
+										</span>
+										<span th:unless="${book.isReservation == true}">
+											<small class ="avaible">Disponible</small>
+										</span>
+<!--									</span>-->
+<!--                                    <span th:unless="${book.isAvaibleBook == true}">-->
+                                        <small class ="notAvaible">Emprunté jusqu'au <span th:text="${book.nearestreturnDate}"></span></small>
+<!--									</span>-->
+                                    <br />
                                     <p th:if="${results == null}">Pas de résultat...</p>
                                 </tbody>
                             </table>

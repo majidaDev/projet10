@@ -1,7 +1,9 @@
 package com.majida.clientui.controller;
 
+import com.majida.clientui.entity.Copy;
 import com.majida.clientui.entity.Loan;
 import com.majida.clientui.entity.Person;
+import com.majida.clientui.entity.Reservation;
 import com.majida.clientui.proxies.MicroservicePersonProxy;
 import com.majida.clientui.proxies.MicroserviceBookProxy;
 import org.apache.logging.log4j.LogManager;
@@ -35,6 +37,7 @@ public class UserController {
 
     /**
      * Post create new person
+     *
      * @param session
      * @param redirectAttributes
      * @param firstname
@@ -52,7 +55,7 @@ public class UserController {
             @RequestParam("email") String email,
             @RequestParam("password") String password
     ) {
-        if(password.length() < 8) {
+        if (password.length() < 8) {
             LOGGER.info("message", "Le mot de passe est trop petit");
             redirectAttributes.addFlashAttribute(
                     "messageFail", "Le mot de passe est trop petit");
@@ -66,6 +69,7 @@ public class UserController {
 
     /**
      * Signin method
+     *
      * @param session
      * @param model
      * @param redirectAttributes
@@ -83,7 +87,7 @@ public class UserController {
     ) {
         Person person = microservicePersonProxy.signIn(email, password);
 
-        if(person == null){
+        if (person == null) {
             redirectAttributes.addFlashAttribute(
                     "messageFail", "L'username ou le mot de passe est mauvais");
             return "redirect:/";
@@ -95,11 +99,12 @@ public class UserController {
         session.setAttribute("lastname", person.getLastname());
         redirectAttributes.addFlashAttribute(
                 "messageFail", "Votre Espace Privé :) !");
-        return "redirect:/person/"+session.getAttribute("id");
+        return "redirect:/person/" + session.getAttribute("id");
     }
 
     /**
      * Post signout
+     *
      * @param redirectAttributes
      * @param session
      * @return
@@ -122,6 +127,7 @@ public class UserController {
 
     /**
      * Return user page with his informations
+     *
      * @param model
      * @param session
      * @param id
@@ -141,11 +147,12 @@ public class UserController {
         List<Loan> loans = microserviceBookProxy.getLoansById(id);
         model.addAttribute("loans", loans);
 
-        return new ModelAndView ("connectedPage");
+        return new ModelAndView("connectedPage");
     }
 
     /**
      * Extend loan
+     *
      * @param session
      * @param redirectAttributes
      * @param loanId
@@ -164,6 +171,96 @@ public class UserController {
         redirectAttributes.addFlashAttribute(
                 "messageSuccess", "Emprunt prolongé avec succès :)");
 
-        return new ModelAndView("redirect:/person/"+session.getAttribute("id"));
+        return new ModelAndView("redirect:/person/" + session.getAttribute("id"));
     }
+
+
+    /**
+     * Set a loan by copy id
+     *
+     * @param bookId
+     * @return Loan
+     */
+    @RequestMapping(value = {"/loan"})
+    public ModelAndView person(
+            HttpSession session,
+            Model model,
+            RedirectAttributes redirectAttributes,
+            @RequestParam("bookId") Long bookId
+    ) {
+        Loan loan = microserviceBookProxy.setLoan(bookId);
+        redirectAttributes.addFlashAttribute(
+                "messageSuccess", "Emprunt prolongé avec succès :)");
+        model.addAttribute("loan", loan);
+        return new ModelAndView("loan");
+    }
+
+/*
+
+    @RequestMapping(value = {"/reservations"})
+    public ModelAndView person(
+            HttpSession session,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+
+
+        List<Reservation> reservations = microserviceBookProxy.listreservations();
+
+        model.addAttribute("reservations", reservations);
+
+        return new ModelAndView("redirect:/person/" + session.getAttribute("id"));
+
+    }
+*/
+/**
+ * add  reservation
+ *
+ * @param idPerson
+ * @param idBook
+ * @return Reservation
+ *//*
+
+        @RequestMapping(value = {"/reservation/addReservation"}, method = RequestMethod.POST)
+        public String addReservation (HttpSession session,
+                                      Model model,
+                                      RedirectAttributes redirectAttributes,
+                                      @RequestParam("idPerson") Long idPerson,
+                                      @RequestParam("idBook") Long idBook)
+        {
+
+
+            if (session.getAttribute("id") != null) {
+                Person person = microservicePersonProxy.getPersonPage(idPerson);
+                try {
+                    microserviceBookProxy.addReservation(person.getId(), idBook);
+                    String acceptMessage = "Votre demande de réservation a bien été pris en compte.";
+                    redirectAttributes.addFlashAttribute("acceptMessage", acceptMessage);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    if (e instanceof Exception) {
+                        String message = e.getMessage();
+                        redirectAttributes.addFlashAttribute("errorMessage", message);
+                    }
+                }
+            } else {
+                redirectAttributes.addFlashAttribute("errorMessage", "Merci de vous connecter pour effectuer une réservation.");
+            }
+
+            return "book";
+        }
+
+    @RequestMapping(value = {"/reservation/{id}/delete-reservation"}, method = RequestMethod.POST)
+    public String deleteReservation(HttpSession session,
+                                    Model model,
+                                    RedirectAttributes redirectAttributes,
+                                    @PathVariable("id") Long id) {
+
+
+        microserviceBookProxy.deleteReservationByPerson(id);
+
+        return "connectedPage";
+    }
+*/
+
+
 }

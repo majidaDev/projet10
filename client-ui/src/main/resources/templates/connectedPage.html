@@ -42,30 +42,69 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr th:each="loan : ${loans}">
-                                                        <td scope="row">
+                                                <tr th:each="loan : ${loans}">
+                                                    <td scope="row">
                                                         <a th:href="@{/book/{path}(path=${loan.copy.book.id})}" target="_blank">
-                                                                <p th:text="${loan.copy.book.title}"></p>
-                                                          </a>
-                                                        </td>
-                                                        <td>
-                                                            <p th:text="${loan.date}"></p>
-                                                        </td>
-                                                        <td>
-                                                            <p th:if="${loan.isSecondLoan == 1}">Vous ne pouvez pas emprunter (second emprunt déjà effectué)</p>
-                                                            <p th:if="${loan.isSecondLoan != 1}">
-                                                                <a th:href="@{/extendLoan/{path}(path=${loan.id})}">
-                                                                    <button type="button" class="btn btn-primary">
-                                                                        Prolonger
-                                                                    </button>
-                                                                </a>
-                                                            </p>
-                                                        </td>
-                                                    </tr>
+                                                            <p th:text="${loan.copy.book.title}"></p>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <p th:text="${loan.date}"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p th:if="${loan.isSecondLoan == 1}">Vous ne pouvez pas emprunter (second emprunt déjà effectué)</p>
+                                                        <p th:if="${loan.isSecondLoan != 1}">
+                                                            <a th:href="@{/extendLoan/{path}(path=${loan.id})}">
+                                                                <button type="button" class="btn btn-primary">
+                                                                    Prolonger
+                                                                </button>
+                                                            </a>
+                                                        </p>
+                                                    </td>
+                                                </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-                                     </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="comments-tab" data-toggle="tab" href="#loans"
+                       role="tab" aria-controls="comments" aria-selected="false">Gérer mes réservations</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="reservations" role="tabpanel" aria-labelledby="loans-tab">
+                    <div class="card mb-3" style="margin-top:10px;">
+                        <div class="row no-gutters">
+                            <div class="col-md-12">
+                                <div class="card-body">
+                                    <div th:if="${#lists.isEmpty(reservations)}">Vous n'avez pas de réservation en cours.</div>
+                                    <ul>
+                                        <span  th:each="reservation : ${reservations}" th:switch="${reservation.status}">
+      													<div class="list-group-item list-group-item-action flex-column align-items-start mb-3" th:case="'Réservation en attente'">
+      														<div class="d-flex w-100 justify-content-around border-bottom">
+    															<h5 class="mb-1" th:text="${reservation.bookTitle}"></h5>
+	    													</div>
+    														<br/>
+    														<p class="mb-1" th:switch="${reservation.deadline}">
+																<span th:case="'01/01/2001'"></span>
+																<span th:case="*"> Date prochaine de fin de prêt : <span th:text="${reservation.deadline}"></span></span>
+															</p>
+    														<p class="mb-1">Votre position dans la liste d'attente : <span th:text="${reservation.position}"></span></p>
+    														<a class="btn btn-info btn-sm btn-block" th:href="@{/reservation/${reservation.id}/delete-reservation}" role="button">Annuler cette réservation</a>
+      													</div>
+
+      													<span th:case="*">
+      														<p class="mb-1">Vous n'avez pas de réservation en cours.</p>
+      													</span>
+      												</span>
+                                    </ul>
                                 </div>
                             </div>
                         </div>

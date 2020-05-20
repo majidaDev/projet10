@@ -80,17 +80,17 @@
 		<!-- <dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-		</dependency> -->
+		</dependency>-->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>5.2.0.RELEASE</version>
 			<scope>compile</scope>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 
 	<dependencyManagement>

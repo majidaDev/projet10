@@ -12,4 +12,5 @@ public class ClientUiApplication {
 		SpringApplication.run(ClientUiApplication.class, args);
 	}
 
+
 }

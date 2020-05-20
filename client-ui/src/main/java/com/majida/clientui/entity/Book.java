@@ -17,6 +17,16 @@ public class Book {
 
     private String image;
 
+    private Integer numberOfReservation;
+
+    private Integer maxNumberOfReservation;
+
+    private String nearestreturnDate;
+
+    private Boolean isAvaibleBook;
+
+    private Boolean reservationBook;
+
     private Set<Copy> copies = new HashSet<Copy>();
 
     private Set<Category> bookCategories  = new HashSet<Category>();
@@ -73,6 +83,46 @@ public class Book {
         this.image = image;
     }
 
+    public Integer getNumberOfReservation() {
+        return numberOfReservation;
+    }
+
+    public void setNumberOfReservation(Integer numberOfReservation) {
+        this.numberOfReservation = numberOfReservation;
+    }
+
+    public Integer getMaxNumberOfReservation() {
+        return maxNumberOfReservation;
+    }
+
+    public void setMaxNumberOfReservation(Integer maxNumberOfReservation) {
+        this.maxNumberOfReservation = maxNumberOfReservation;
+    }
+
+    public String getNearestreturnDate() {
+        return nearestreturnDate;
+    }
+
+    public void setNearestreturnDate(String nearestreturnDate) {
+        this.nearestreturnDate = nearestreturnDate;
+    }
+
+    public Boolean getAvaibleBook() {
+        return isAvaibleBook;
+    }
+
+    public void setAvaibleBook(Boolean avaibleBook) {
+        isAvaibleBook = avaibleBook;
+    }
+
+    public Boolean getReservationBook() {
+        return reservationBook;
+    }
+
+    public void setReservationBook(Boolean reservationBook) {
+        this.reservationBook = reservationBook;
+    }
+
     public Set<Copy> getCopies() {
         return copies;
     }
@@ -87,5 +137,12 @@ public class Book {
 
     public void setBookCategories(Set<Category> bookCategories) {
         this.bookCategories = bookCategories;
+    }
+
+    @Override
+    public String toString() {
+        return "Book [id=" + id + ", title=" + title + ", description=" + description + ", image=" + image
+                + ", bookCategories=" + bookCategories + ", numberofReservation=" + numberOfReservation + ", maxNumberOfBooking="
+                + maxNumberOfReservation + ", nearestreturnDate=" + nearestreturnDate + "]";
     }
 }

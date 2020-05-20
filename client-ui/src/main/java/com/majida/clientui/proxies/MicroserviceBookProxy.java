@@ -1,9 +1,6 @@
 package com.majida.clientui.proxies;
 
-import com.majida.clientui.entity.Book;
-import com.majida.clientui.entity.Category;
-import com.majida.clientui.entity.Copy;
-import com.majida.clientui.entity.Loan;
+import com.majida.clientui.entity.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -93,12 +90,12 @@ public interface MicroserviceBookProxy {
     List<Loan> getAllLoans();
 
     /**
-     * Set a loan by copy id
-     * @param copyId
+     * Set a loan by book id
+     * @param bookId
      * @return Loan
      */
     @RequestMapping(value = {"/microservice-book/loan"}, method = RequestMethod.POST)
-    Loan setLoan(@RequestParam Long copyId);
+    Loan setLoan(@RequestParam Long bookId);
 
     /**
      * Extend a loan by loan id
@@ -107,6 +104,41 @@ public interface MicroserviceBookProxy {
      */
     @RequestMapping(value = {"/microservice-book/extendLoan/{loanId}"}, method = RequestMethod.POST)
     Loan extendLoan(@PathVariable Long loanId);
+
+    /**
+     * Get all reservations
+     * @return List<Reservation>
+     *//*
+    @RequestMapping(value = {"/microservice-book//reservations"}, method = RequestMethod.GET)
+    @ResponseBody
+    List<Reservation> listreservations();
+
+*//**
+ * add  reservation
+ *
+ * @param idPerson
+ * @param idBook
+ * @return Reservation
+ *//*
+    @RequestMapping(value = {"/reservation/addReservation"}, method = RequestMethod.POST)
+    Reservation addReservation(@RequestParam Long idPerson, @RequestParam Long idBook);
+
+    *//**
+     * Get all reservations by person id
+     * @param personId
+     * @return Set<Reservation>
+     *//*
+    @RequestMapping(value = {"/reservation/{idUser}"}, method = RequestMethod.GET)
+    List<Reservation> listReservationsByPerson(@PathVariable int personId);
+
+    *//**
+     * delete reservation
+     *
+     * @param id reservation
+     *//*
+    @RequestMapping(value = {"/reservation/{id}/delete-reservation"}, method = RequestMethod.POST)
+     Reservation deleteReservationByPerson(@PathVariable Long id);
+*/
 }
 
 
