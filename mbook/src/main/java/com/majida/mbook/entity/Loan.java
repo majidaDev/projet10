@@ -1,6 +1,8 @@
 package com.majida.mbook.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,8 +18,16 @@ public class Loan {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "date")
-    private Date date;
+    @Column(name = "dateloan")
+    @Temporal( TemporalType.DATE )
+    @DateTimeFormat( iso = ISO.DATE )
+    private Date dateloan;
+
+
+    @Column(name="deadline")
+    @Temporal( TemporalType.DATE )
+    @DateTimeFormat( iso = ISO.DATE )
+    private Date deadline;
 
     @Column(name = "is_second")
     private int isSecondLoan;
@@ -38,11 +48,12 @@ public class Loan {
     public Loan() {
     }
 
-    public Loan(Date date, int isSecondLoan, Copy copy, int idPerson) {
-        this.date = date;
+    public Loan(Date dateloan, int isSecondLoan, Copy copy, int idPerson, Date dateline) {
+        this.dateloan = dateloan;
         this.isSecondLoan = isSecondLoan;
         this.copy = copy;
         this.IdPerson= idPerson;
+        this.deadline=dateline;
     }
 
     public Long getId() {
@@ -53,13 +64,7 @@ public class Loan {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
-    }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
     public int getIsSecondLoan() {
         return isSecondLoan;
@@ -88,6 +93,22 @@ public class Loan {
 
     public Status getStatus() {
         return status;
+    }
+
+    public Date getDateloan() {
+        return dateloan;
+    }
+
+    public void setDateloan(Date dateloan) {
+        this.dateloan = dateloan;
+    }
+
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
 
     public void setStatus(Status status) {

@@ -6,15 +6,16 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/client-ui/pom.xml" />
+        <option value="$PROJECT_DIR$/config-server/pom.xml" />
         <option value="$PROJECT_DIR$/eureka-server/pom.xml" />
+        <option value="$PROJECT_DIR$/zuul-server/pom.xml" />
         <option value="$PROJECT_DIR$/mbook/pom.xml" />
         <option value="$PROJECT_DIR$/mperson/pom.xml" />
         <option value="$PROJECT_DIR$/springadmin/pom.xml" />
-        <option value="$PROJECT_DIR$/zuul-server/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_13" default="false" project-jdk-name="12" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_13" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
 </project>

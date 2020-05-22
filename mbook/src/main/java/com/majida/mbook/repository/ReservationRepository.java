@@ -18,16 +18,13 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
     @Query(value = "SELECT * FROM Reservation r WHERE r.book_id = ?", nativeQuery = true)
     List<Reservation> getAllReservationsBookId(Long id);
 
-    @Query(value = "SELECT * FROM Reservation r WHERE r.book_id = ? order by date asc ", nativeQuery = true)
-    List<Reservation> getAllReservationsBookIdOrOrderByDate(Long id);
-
-    @Query("Select r from Reservation r where r.sendMail =:sendMail and r.status =:status")
+    @Query(value ="Select r FROM Reservation r where r.sendMail =:sendMail and r.status =:status")
     List<Reservation> findReservationBySendMailAndStatus(Boolean sendMail, Status status);
 
-    @Query("Select r from Reservation r where r.book =:book and r.status =:status order by r.dateCreate")
+    @Query(value = "Select r from Reservation r where r.book =:book and r.status =:status order by r.dateCreate")
     List<Reservation> findReservationByBookAndStatusOrderByDateCreate(Book book, Status status);
 
-    @Query("Select r from Reservation r where r.IdPerson =:idPerson and r.status =:status order by r.dateCreate")
+    @Query(value = "Select r from Reservation r where r.IdPerson =:idPerson and r.status =:status order by r.dateCreate")
     List<Reservation> findByIdPersonAndStatusOrderByDateCreate(int idPerson, Status status);
 
 }

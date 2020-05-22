@@ -36,10 +36,6 @@ public class ReservationService {
         List<Reservation> reservations = reservationRepository.getAllReservationsBookId(id);
         return reservations;
     }
-    public List<Reservation> getAllReservationsBookIdOrOrderByDate(Long id) {
-        List<Reservation> reservations = reservationRepository.getAllReservationsBookIdOrOrderByDate(id);
-        return reservations;
-    }
 
     public Optional<Reservation> getReservation(Long id) {
         return reservationRepository.findById(id);

@@ -1,3 +1,4 @@
+/*
 package com.majida.mbook.service;
 
 
@@ -89,7 +90,7 @@ public class Batch {
         Date todayDate = new Date();
 
         for (int i = 0; i < allLoans.size(); i++) {
-            Date loanDate = allLoans.get(i).getDate();
+            Date loanDate = allLoans.get(i).getDateloan();
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(todayDate);
@@ -136,7 +137,7 @@ public class Batch {
         return persons;
     }
 
-    @Scheduled(cron = "*/60 * * * * *")
+    @Scheduled(cron = "60 * * * * *")
     public void sendReservationMail () {
 
         List<Reservation> reservationList = reservationRepository.findReservationBySendMailAndStatus(true, Status.Waiting);
@@ -195,6 +196,6 @@ public class Batch {
     }
 
 }
-
+*/
 
 

@@ -1,6 +1,15 @@
-[INFO ] 2020-05-16 17:13:10.469 [main] MbookApplication - No active profile set, falling back to default profiles: default
-[INFO ] 2020-05-16 17:25:56.449 [main] MbookApplication - No active profile set, falling back to default profiles: default
-[INFO ] 2020-05-16 17:28:13.631 [main] MbookApplication - No active profile set, falling back to default profiles: default
-[INFO ] 2020-05-16 17:28:47.065 [main] MbookApplication - Started MbookApplication in 41.936 seconds (JVM running for 65.197)
-[INFO ] 2020-05-16 17:52:09.894 [http-nio-9090-exec-1] BookController - getBooks was called
-[INFO ] 2020-05-16 17:52:11.247 [http-nio-9090-exec-2] BookController - getCategories was called
+[INFO ] 2020-05-21 00:25:34.906 [main] MbookApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2020-05-21 00:26:01.158 [main] MbookApplication - Started MbookApplication in 34.864 seconds (JVM running for 51.584)
+[INFO ] 2020-05-21 00:27:36.339 [http-nio-9090-exec-1] BookController - getBooks was called
+[INFO ] 2020-05-21 00:27:37.909 [http-nio-9090-exec-2] BookController - getCategories was called
+[INFO ] 2020-05-21 00:27:52.817 [http-nio-9090-exec-3] BookController - getBooksByCategoryId was called
+[INFO ] 2020-05-21 00:28:13.072 [http-nio-9090-exec-4] BookController - getBook was called
+[INFO ] 2020-05-21 00:28:13.220 [http-nio-9090-exec-5] BookController - getCopiesById was called
+[INFO ] 2020-05-21 01:02:37.423 [http-nio-9090-exec-7] BookController - getLoansById was called
+[INFO ] 2020-05-21 01:21:44.112 [http-nio-9090-exec-8] BookController - getBooks was called
+[INFO ] 2020-05-21 01:21:45.439 [http-nio-9090-exec-10] BookController - getCategories was called
+[INFO ] 2020-05-21 01:21:49.651 [http-nio-9090-exec-1] BookController - getBooks was called
+[INFO ] 2020-05-21 01:21:50.072 [http-nio-9090-exec-2] BookController - getCategories was called
+[INFO ] 2020-05-21 01:21:58.885 [http-nio-9090-exec-3] BookController - getBooksByAuthor was called
+[INFO ] 2020-05-21 01:22:11.670 [http-nio-9090-exec-4] BookController - getBook was called
+[INFO ] 2020-05-21 01:22:11.731 [http-nio-9090-exec-5] BookController - getCopiesById was called

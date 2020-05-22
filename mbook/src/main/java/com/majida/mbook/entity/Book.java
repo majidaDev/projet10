@@ -40,32 +40,34 @@ public class Book {
     @OrderBy
     private Set<Category> bookCategories  = new HashSet<Category>();
 
-    @OneToMany(mappedBy = "book")
-    private Set<Reservation> reservations;
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "book")
+    @OrderBy
+    private Set<Reservation> reservations = new HashSet<Reservation>();;
 
     @Transient
-    private String nearestDeadline;
+    private String nearestreturnDate;
 
     @Transient
-    private Integer numberOfBooking;
+    private Integer numberOfReservation;
 
     @Transient
     private Boolean isReservation;
 
-    public Book() {
-    }
-
-
-    public Boolean isavailableBook() {
-        Boolean avaibleBook = false;
+    public Boolean isAvaibleBook() {
+        Boolean isAvaibleBook = false;
         for (Copy bookCopy : copies) {
-            if (bookCopy.getIsAvailable() == 0) {
-                avaibleBook = true;
+            if (bookCopy.getIsAvailable() == 1) {
+                isAvaibleBook = true;
                 break;
             }
         }
-        return avaibleBook;
+        return isAvaibleBook;
+
     }
+
+    public Book() {
+    }
+
     public Book(String title, String description, String author, String image, Set<Copy> copies, Set<Category> bookCategories) {
         this.title = title;
         this.description = description;
@@ -139,27 +141,28 @@ public class Book {
         this.reservations = reservations;
     }
 
-    public String getNearestDeadline() {
-        return nearestDeadline;
+    public String getNearestreturnDate() {
+        return nearestreturnDate;
     }
 
-    public void setNearestDeadline(String nearestDeadline) {
-        this.nearestDeadline = nearestDeadline;
+    public void setNearestreturnDate(String nearestreturnDate) {
+        this.nearestreturnDate = nearestreturnDate;
     }
 
-    public Integer getNumberOfBooking() {
-        return numberOfBooking;
+
+    public Integer getNumberOfReservation() {
+        return numberOfReservation;
     }
 
-    public void setNumberOfBooking(Integer numberOfBooking) {
-        this.numberOfBooking = numberOfBooking;
+    public void setNumberOfReservation(Integer numberOfReservation) {
+        this.numberOfReservation = numberOfReservation;
     }
 
-    public Boolean getReservation() {
+    public Boolean getIsReservation() {
         return isReservation;
     }
 
-    public void setReservation(Boolean reservation) {
+    public void setIsReservation(Boolean reservation) {
         isReservation = reservation;
     }
 }

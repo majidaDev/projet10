@@ -48,7 +48,6 @@ public class LoanService {
     public Book closeLoan(Loan l) {
         Copy copy = l.getCopy();
         Book bookretourne =copy.getBook();
-        List<Reservation> reservations = reservationRepository.findReservationByBookAndStatusOrderByDateCreate(bookretourne,Status.Waiting);
         copy.setIsAvailable(0);
         int is = copy.getIsAvailable();
         copyService.updateCopy((Long.valueOf(is)), copy);

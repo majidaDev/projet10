@@ -21,7 +21,7 @@
                         <img th:if="${book.image == null}" th:src="@{/images/MML.png}"
                              width="200" height="300" class="card-img-top" alt="..." />
                     </div>
-                    <span th:if="${book.isAvaibleBook == true and book.reservationBook != true}">
+                   <!-- <span th:if="${book.isAvaibleBook == true and book.reservationBook != true}">
 			</span>
                     <div class="col-12" th:unless="${book.isAvaibleBook == true and book.reservationBook != true}">
                         <div class="row col-12 justify-content-between">
@@ -39,12 +39,21 @@
                         </p>
                         <p class="mb-1">Nombre de personnes ayant réservé ce livre : <span th:text="${book.maxNumberOfReservation}"></span></p>
                         <br/>
-                    </div>
+                    </div>-->
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${book.title}"></h5>
                             <p class="card-text" th:text="${book.description}"></p>
                             <p class="card-text" th:text="${book.author}"></p>
+                            <p class="card-text" th:text="${book.numberOfReservation}">Nombre de personnes ayant réservé ce livre</p>
+                            <p class="card-text" th:text="${book.reservationBook}"></p>
+                            <p class="card-text" th:text="${book.nearestreturnDate}"></p>
+                            <div th:if="${book.isAvaibleBook == true}" class="row">
+                            <div class="col-12" th:unless="${book.isAvaibleBook == true and book.reservationBook != true}">
+                                <div class="row col-12 justify-content-between">
+                                    <h4>Réservation</h4>
+                                </div></div>
+                            </div>
                             <table class="table table-hover">
                                 <thead>
                                 <tr>

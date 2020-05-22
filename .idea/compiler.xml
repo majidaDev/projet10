@@ -6,13 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="mperson" />
         <module name="eureka-server" />
         <module name="config-server" />
         <module name="client-ui" />
         <module name="springadmin" />
         <module name="mbook" />
         <module name="zuul-server" />
-        <module name="mperson" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -21,6 +21,7 @@
       <module name="eureka-server" target="1.8" />
       <module name="mbook" target="1.8" />
       <module name="mperson" target="11" />
+      <module name="projet10" target="1.5" />
       <module name="springadmin" target="1.8" />
       <module name="zuul-server" target="1.8" />
     </bytecodeTargetLevel>

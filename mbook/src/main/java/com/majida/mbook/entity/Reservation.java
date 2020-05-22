@@ -19,15 +19,12 @@ public class Reservation {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "date")
-    private Date date;
-
     @Column(name="status")
     @Enumerated(EnumType.STRING)
     private Status status;
 
     @Column(name = "id_person")
-    private int IdPerson;
+    private Long IdPerson;
 
     @Column(name = "dateCreate")
     @Temporal( TemporalType.DATE )
@@ -82,14 +79,6 @@ public class Reservation {
         this.dateMail = dateMail;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -98,11 +87,11 @@ public class Reservation {
         this.status = status;
     }
 
-    public int getIdPerson() {
+    public Long getIdPerson() {
         return IdPerson;
     }
 
-    public void setIdPerson(int idPerson) {
+    public void setIdPerson(Long idPerson) {
         IdPerson = idPerson;
     }
 
