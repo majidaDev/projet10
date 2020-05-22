@@ -420,11 +420,15 @@ public class BookController {
                 LOGGER.info("This is your second loan, you can't extend anymore");
                 return null;
             }
+            Date today = new Date();
 
-            Date date = new Date();
+            if (today.after(loan.getDeadline())) {
+                throw new BookNotFoundException("You Can't extend the date has passed ");
+            }
+
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             loan.setIsSecondLoan(1);
-            loan.setDateloan(date);
+            loan.setDateloan(today);
             loan.setStatus(Status.Renouvele);
             loanService.updateLoan(loanId, loan);
 
