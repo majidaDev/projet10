@@ -21,12 +21,27 @@
                         <img th:if="${book.image == null}" th:src="@{/images/MML.png}"
                              width="200" height="300" class="card-img-top" alt="..." />
                     </div>
-                   <!-- <span th:if="${book.isAvaibleBook == true and book.reservationBook != true}">
+                        <span th:if="${session.firstname}" class="nav-item">
+                            <div class="col-12">
+						<span th:if="${book.avaibleBook == true}">
+							<span th:if="${book.isReservation == true}">
+								<small class ="reservation">Réservé</small>
+							</span>
+							<span th:unless="${book.reservationBook == true}">
+								<small class ="avaible">Disponible</small>
+							</span>
+						</span>
+						<span th:unless="${book.avaibleBook == true}">
+							<p class ="notAvaible">Emprunté jusqu'au <span th:text="${book.nearestreturnDate}">
+						</span>
+                            </p></span>
+					</div>
+                   <span th:if="${book.avaibleBook == true and book.reservationBook != true}">
 			</span>
-                    <div class="col-12" th:unless="${book.isAvaibleBook == true and book.reservationBook != true}">
+                    <div class="col-12" th:unless="${book.avaibleBook == true and book.reservationBook != true}">
                         <div class="row col-12 justify-content-between">
                             <h4>Réservation</h4>
-                            <form th:action="@{/reservation/${book.id}/add-reservation}" method="post">
+                            <form th:action="@{/reservation/{bookid}/{sessionid}(bookid=${book.id},sessionid=${session.id})}" method="post">
                                 <div class="text-center">
                                     <input type="submit" class="btn btn-dark btn-sm" id="submit" name="submit" value="Réserver ce livre">
                                 </div>
@@ -39,20 +54,15 @@
                         </p>
                         <p class="mb-1">Nombre de personnes ayant réservé ce livre : <span th:text="${book.maxNumberOfReservation}"></span></p>
                         <br/>
-                    </div>-->
+
+                    </div>
+                            </span>
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${book.title}"></h5>
                             <p class="card-text" th:text="${book.description}"></p>
                             <p class="card-text" th:text="${book.author}"></p>
-                            <p class="card-text" th:text="${book.numberOfReservation}">Nombre de personnes ayant réservé ce livre</p>
-                            <p class="card-text" th:text="${book.reservationBook}"></p>
-                            <p class="card-text" th:text="${book.nearestreturnDate}"></p>
-                            <div th:if="${book.isAvaibleBook == true}" class="row">
-                            <div class="col-12" th:unless="${book.isAvaibleBook == true and book.reservationBook != true}">
-                                <div class="row col-12 justify-content-between">
-                                    <h4>Réservation</h4>
-                                </div></div>
+                            <p class="card-text" th:text="${book.author}"></p>
                             </div>
                             <table class="table table-hover">
                                 <thead>

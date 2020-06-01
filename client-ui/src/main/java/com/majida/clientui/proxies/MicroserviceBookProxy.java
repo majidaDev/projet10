@@ -90,12 +90,12 @@ public interface MicroserviceBookProxy {
     List<Loan> getAllLoans();
 
     /**
-     * Set a loan by book id
-     * @param bookId
+     * Set a loan by loan
+     * @param loan
      * @return Loan
      */
     @RequestMapping(value = {"/microservice-book/loan"}, method = RequestMethod.POST)
-    Loan setLoan(@RequestParam Long bookId);
+    Loan setLoan(@RequestParam Loan loan);
 
     /**
      * Extend a loan by loan id
@@ -106,39 +106,55 @@ public interface MicroserviceBookProxy {
     Loan extendLoan(@PathVariable Long loanId);
 
     /**
+     * renewal a loan
+     *
+     * @param loanId
+     * @return Loan
+     */
+    @RequestMapping( value = {"/microservice-book/renewalLoan/{loanId}/"},method = RequestMethod.POST)
+    public Loan renewalLoan(@PathVariable Long loanId);
+
+    /**
      * Get all reservations
      * @return List<Reservation>
-     *//*
+     */
     @RequestMapping(value = {"/microservice-book//reservations"}, method = RequestMethod.GET)
     @ResponseBody
     List<Reservation> listreservations();
 
-*//**
+/**
  * add  reservation
  *
  * @param idPerson
  * @param idBook
  * @return Reservation
- *//*
-    @RequestMapping(value = {"/reservation/addReservation"}, method = RequestMethod.POST)
-    Reservation addReservation(@RequestParam Long idPerson, @RequestParam Long idBook);
+ */
+    @RequestMapping(value = {"/microservice-book/reservation/{idBook}/{idPerson}"}, method = RequestMethod.POST)
+    Reservation addReservation(@PathVariable Long idPerson, @PathVariable Long idBook);
 
-    *//**
+    /**
      * Get all reservations by person id
      * @param personId
      * @return Set<Reservation>
-     *//*
-    @RequestMapping(value = {"/reservation/{idUser}"}, method = RequestMethod.GET)
-    List<Reservation> listReservationsByPerson(@PathVariable int personId);
+     */
+    @RequestMapping(value = {"/microservice-book/reservation/{personId}"}, method = RequestMethod.GET)
+    List<Reservation> listReservationsByPerson(@PathVariable Long personId);
 
-    *//**
-     * delete reservation
+    /**
+     * delete reservation by system
      *
      * @param id reservation
-     *//*
-    @RequestMapping(value = {"/reservation/{id}/delete-reservation"}, method = RequestMethod.POST)
+     */
+    @RequestMapping(value = {"/microservice-book/deleteReservation/{id}"}, method = RequestMethod.POST)
      Reservation deleteReservationByPerson(@PathVariable Long id);
-*/
+
+    /**
+     * delete reservation by person
+     *
+     * @param id reservation
+     */
+    @RequestMapping(value = {"/microservice-book/cancelReservation/{id}"}, method = RequestMethod.POST)
+    Reservation cancelReservationByPerson(@PathVariable Long id);
 }
 
 

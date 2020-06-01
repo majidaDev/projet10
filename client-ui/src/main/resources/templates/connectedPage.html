@@ -8,15 +8,16 @@
 <body>
 <header th:insert="~{template :: header}"></header>
 <div class="container">
-    <div th:if="${session.firstname == null}"  class="row">
+    <div th:if="${session.firstname == null}" class="row">
         <div class="col-sm-12">
             <h2> Veuillez vous connecter :)</h2>
         </div>
     </div>
-    <div th:if="${session.firstname != null}"  class="row">
+    <div th:if="${session.firstname != null}" class="row">
         <div class="col-sm-12">
             <h2>Bienvenue <span th:text="${session.firstname}"></span></h2>
-            <div th:if="${messageSuccess != null}" th:text= "${messageSuccess}" class="alert alert-success" role="alert" style="margin: 5px;">
+            <div th:if="${messageSuccess != null}" th:text="${messageSuccess}" class="alert alert-success" role="alert"
+                 style="margin: 5px;">
             </div>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -30,7 +31,8 @@
                         <div class="row no-gutters">
                             <div class="col-md-12">
                                 <div class="card-body">
-                                    <div th:if="${#lists.isEmpty(loans)}">Vous n'avez pas d'emprunt pour le moment :)</div>
+                                    <div th:if="${#lists.isEmpty(loans)}">Vous n'avez pas d'emprunt pour le moment :)
+                                    </div>
                                     <ul>
                                         <div class=" table-responsive-sm table-responsive-md table-responsive-lg">
                                             <table class="table">
@@ -44,7 +46,8 @@
                                                 <tbody>
                                                 <tr th:each="loan : ${loans}">
                                                     <td scope="row">
-                                                        <a th:href="@{/book/{path}(path=${loan.copy.book.id})}" target="_blank">
+                                                        <a th:href="@{/book/{path}(path=${loan.copy.book.id})}"
+                                                           target="_blank">
                                                             <p th:text="${loan.copy.book.title}"></p>
                                                         </a>
                                                     </td>
@@ -52,7 +55,8 @@
                                                         <p th:text="${loan.date}"></p>
                                                     </td>
                                                     <td>
-                                                        <p th:if="${loan.isSecondLoan == 1}">Vous ne pouvez pas emprunter (second emprunt déjà effectué)</p>
+                                                        <p th:if="${loan.isSecondLoan == 1}">Vous ne pouvez pas
+                                                            emprunter (second emprunt déjà effectué)</p>
                                                         <p th:if="${loan.isSecondLoan != 1}">
                                                             <a th:href="@{/extendLoan/{path}(path=${loan.id})}">
                                                                 <button type="button" class="btn btn-primary">
@@ -84,20 +88,28 @@
                         <div class="row no-gutters">
                             <div class="col-md-12">
                                 <div class="card-body">
-                                    <div th:if="${#lists.isEmpty(reservations)}">Vous n'avez pas de réservation en cours.</div>
+                                    <div th:if="${#lists.isEmpty(reservations)}">Vous n'avez pas de réservation en
+                                        cours.
+                                    </div>
                                     <ul>
-                                        <span  th:each="reservation : ${reservations}" th:switch="${reservation.status}">
-      													<div class="list-group-item list-group-item-action flex-column align-items-start mb-3" th:case="'Réservation en attente'">
+                                        <span th:each="reservation : ${reservations}" th:switch="${reservation.status}">
+      													<div class="list-group-item list-group-item-action flex-column align-items-start mb-3"
+                                                             th:case="'Réservation en attente'">
       														<div class="d-flex w-100 justify-content-around border-bottom">
-    															<h5 class="mb-1" th:text="${reservation.bookTitle}"></h5>
+    															<h5 class="mb-1"
+                                                                    th:text="${reservation.bookTitle}"></h5>
 	    													</div>
     														<br/>
     														<p class="mb-1" th:switch="${reservation.deadline}">
 																<span th:case="'01/01/2001'"></span>
-																<span th:case="*"> Date prochaine de fin de prêt : <span th:text="${reservation.deadline}"></span></span>
+																<span th:case="*"> Date prochaine de fin de prêt : <span
+                                                                        th:text="${reservation.deadline}"></span></span>
 															</p>
-    														<p class="mb-1">Votre position dans la liste d'attente : <span th:text="${reservation.position}"></span></p>
-    														<a class="btn btn-info btn-sm btn-block" th:href="@{/reservation/${reservation.id}/delete-reservation}" role="button">Annuler cette réservation</a>
+    														<p class="mb-1">Votre position dans la liste d'attente : <span
+                                                                    th:text="${reservation.position}"></span></p>
+    														<a class="btn btn-info btn-sm btn-block"
+                                                               th:href="@{/reservation/${reservation.id}/delete-reservation}"
+                                                               role="button">Annuler cette réservation</a>
       													</div>
 
       													<span th:case="*">

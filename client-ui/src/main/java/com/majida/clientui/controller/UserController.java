@@ -178,7 +178,7 @@ public class UserController {
     /**
      * Set a loan by copy id
      *
-     * @param bookId
+     * @param loan
      * @return Loan
      */
     @RequestMapping(value = {"/loan"})
@@ -186,16 +186,16 @@ public class UserController {
             HttpSession session,
             Model model,
             RedirectAttributes redirectAttributes,
-            @RequestParam("bookId") Long bookId
+            @RequestParam("loan") Loan loan
     ) {
-        Loan loan = microserviceBookProxy.setLoan(bookId);
+        loan = microserviceBookProxy.setLoan(loan);
         redirectAttributes.addFlashAttribute(
                 "messageSuccess", "Emprunt prolongé avec succès :)");
         model.addAttribute("loan", loan);
         return new ModelAndView("loan");
     }
 
-/*
+
 
     @RequestMapping(value = {"/reservations"})
     public ModelAndView person(
@@ -211,21 +211,21 @@ public class UserController {
         return new ModelAndView("redirect:/person/" + session.getAttribute("id"));
 
     }
-*/
+
 /**
  * add  reservation
  *
  * @param idPerson
  * @param idBook
  * @return Reservation
- *//*
+ */
 
-        @RequestMapping(value = {"/reservation/addReservation"}, method = RequestMethod.POST)
+        @RequestMapping(value = {"/reservation/{idBook}/{idPerson}"}, method = RequestMethod.POST)
         public String addReservation (HttpSession session,
                                       Model model,
                                       RedirectAttributes redirectAttributes,
-                                      @RequestParam("idPerson") Long idPerson,
-                                      @RequestParam("idBook") Long idBook)
+                                      @PathVariable("idPerson") Long idPerson,
+                                      @PathVariable("idBook") Long idBook)
         {
 
 
@@ -239,7 +239,7 @@ public class UserController {
                     e.printStackTrace();
                     if (e instanceof Exception) {
                         String message = e.getMessage();
-                        redirectAttributes.addFlashAttribute("errorMessage", message);
+                        redirectAttributes.addFlashAttribute("messageFail", "Réservation déja faite pour ce livre");
                     }
                 }
             } else {
@@ -249,18 +249,18 @@ public class UserController {
             return "book";
         }
 
-    @RequestMapping(value = {"/reservation/{id}/delete-reservation"}, method = RequestMethod.POST)
-    public String deleteReservation(HttpSession session,
+    @RequestMapping(value = {"/cancelReservation/{id}"}, method = RequestMethod.POST)
+    public String cancelReservation(HttpSession session,
                                     Model model,
                                     RedirectAttributes redirectAttributes,
                                     @PathVariable("id") Long id) {
 
 
-        microserviceBookProxy.deleteReservationByPerson(id);
+        microserviceBookProxy.cancelReservationByPerson(id);
 
         return "connectedPage";
     }
-*/
+
 
 
 }

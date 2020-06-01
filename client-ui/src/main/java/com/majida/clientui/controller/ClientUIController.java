@@ -39,7 +39,7 @@ public class ClientUIController {
         LOGGER.info("get homepage");
 //appeler le microservice BookProxy et la méthode getbooks
         //cet appel va générer la requete Http adéquate, va communiquer avec le microservice book
-        //récupérer la liste et la mettre dans une liste des objets books et noua l a renvoyé
+        //récupérer la liste et la mettre dans une liste des objets books et nous l a renvoyé
         List<Book> books = microserviceBookProxy.getBooks();
         //pour passer cette liste des books vers la template
         model.addAttribute("books", books);
