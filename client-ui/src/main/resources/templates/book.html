@@ -10,6 +10,11 @@
 
 <div class="container">
     <div class="row">
+        <div th:if="${errorMessage != null}" class="alert alert-warning col-12" role="alert">
+            <p class="text-center" th:text="${errorMessage}"></p></div>
+            <div th:if="${acceptMessage != null}" class="alert alert-success col-12" role="alert">
+                <p class="text-center" th:text="${acceptMessage}"></p>
+            </div>
         <div class="col-sm-12">
             <h2 th:text= "${book.title}">
             </h2>
@@ -24,11 +29,11 @@
                         <span th:if="${session.firstname}" class="nav-item">
                             <div class="col-12">
 						<span th:if="${book.avaibleBook == true}">
-							<span th:if="${book.isReservation == true}">
+							<!--<span th:if="${book.reservationBook == true}">
 								<small class ="reservation">Réservé</small>
-							</span>
+							</span>-->
 							<span th:unless="${book.reservationBook == true}">
-								<small class ="avaible">Disponible</small>
+								<small class ="avaible">Déja reservé</small>
 							</span>
 						</span>
 						<span th:unless="${book.avaibleBook == true}">
@@ -36,9 +41,9 @@
 						</span>
                             </p></span>
 					</div>
-                   <span th:if="${book.avaibleBook == true and book.reservationBook != true}">
+                 <!--  <span th:if="${book.avaibleBook == true and book.reservationBook != true}">
 			</span>
-                    <div class="col-12" th:unless="${book.avaibleBook == true and book.reservationBook != true}">
+                    <div class="col-12" th:unless="${book.avaibleBook == true and book.reservationBook != true}">-->
                         <div class="row col-12 justify-content-between">
                             <h4>Réservation</h4>
                             <form th:action="@{/reservation/{bookid}/{sessionid}(bookid=${book.id},sessionid=${session.id})}" method="post">
@@ -52,7 +57,7 @@
                             <span th:case="'01/01/2001'"></span>
                             <span th:case="*"> Date prochaine de fin de prêt : <span th:text="${book.nearestreturnDate}"></span></span>
                         </p>
-                        <p class="mb-1">Nombre de personnes ayant réservé ce livre : <span th:text="${book.maxNumberOfReservation}"></span></p>
+                        <p class="mb-1">Nombre de personnes ayant réservé ce livre : <span th:text="${book.numberOfReservation}"></span></p>
                         <br/>
 
                     </div>

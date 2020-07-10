@@ -15,9 +15,24 @@ public class Reservation {
     private Long IdPerson;
 
     private Integer position;
+
     private String bookName;
 
     private String deadline;
+
+
+    public Reservation() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
 
     public String getStatus() {
         return status;
@@ -57,17 +72,6 @@ public class Reservation {
 
     public void setDeadline(String deadline) {
         this.deadline = deadline;
-    }
-
-    public Reservation() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
 

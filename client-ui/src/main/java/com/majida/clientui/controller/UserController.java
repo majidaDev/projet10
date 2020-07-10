@@ -1,6 +1,5 @@
 package com.majida.clientui.controller;
 
-import com.majida.clientui.entity.Copy;
 import com.majida.clientui.entity.Loan;
 import com.majida.clientui.entity.Person;
 import com.majida.clientui.entity.Reservation;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.majida.clientui.exception.ClientUINotFoundException;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -98,7 +98,7 @@ public class UserController {
         session.setAttribute("firstname", person.getFirstname());
         session.setAttribute("lastname", person.getLastname());
         redirectAttributes.addFlashAttribute(
-                "messageFail", "Votre Espace Privé :) !");
+                "messageSuccess", "Votre Espace Privé :) !");
         return "redirect:/person/" + session.getAttribute("id");
     }
 
@@ -147,33 +147,45 @@ public class UserController {
         List<Loan> loans = microserviceBookProxy.getLoansById(id);
         model.addAttribute("loans", loans);
 
+        List <Reservation> reservations = microserviceBookProxy.getReservationsById(id);
+        model.addAttribute("reservations", reservations);
+
         return new ModelAndView("connectedPage");
     }
 
+
     /**
-     * Extend loan
+     * renewal a loan
      *
-     * @param session
-     * @param redirectAttributes
      * @param loanId
-     * @return
+     * @return Loan
      */
-    @RequestMapping("/extendLoan/{loanId}")
+    @RequestMapping( value = {"/renewalLoan/{loanId}"})
     public ModelAndView person(
             HttpSession session,
             RedirectAttributes redirectAttributes,
-            @PathVariable("loanId") final Long loanId
-    ) {
+            @PathVariable("loanId") final Long loanId) {
+
+
         LOGGER.info("get homepage");
 
-        Loan loan = microserviceBookProxy.extendLoan(loanId);
+        try
+        {
+            Loan loan = microserviceBookProxy.renewalLoan(loanId);
+            redirectAttributes.addFlashAttribute(
+                    "messageSuccess", "Emprunt prolongé avec succès :)");
+        }catch( Exception e) {
+            e.printStackTrace();
+            if (e instanceof Exception ) {
+                String message = e.getMessage();
+                redirectAttributes.addFlashAttribute("messageFail", "vous ne pouvez pas prolonger car la date est déja passée");
+            }
+        }
 
-        redirectAttributes.addFlashAttribute(
-                "messageSuccess", "Emprunt prolongé avec succès :)");
+
 
         return new ModelAndView("redirect:/person/" + session.getAttribute("id"));
     }
-
 
     /**
      * Set a loan by copy id
@@ -233,10 +245,8 @@ public class UserController {
                 Person person = microservicePersonProxy.getPersonPage(idPerson);
                 try {
                     microserviceBookProxy.addReservation(person.getId(), idBook);
-                    String acceptMessage = "Votre demande de réservation a bien été pris en compte.";
-                    redirectAttributes.addFlashAttribute("acceptMessage", acceptMessage);
+                    redirectAttributes.addFlashAttribute("acceptMessage", "Votre demande de réservation a bien été pris en compte.");
                 } catch (Exception e) {
-                    e.printStackTrace();
                     if (e instanceof Exception) {
                         String message = e.getMessage();
                         redirectAttributes.addFlashAttribute("messageFail", "Réservation déja faite pour ce livre");

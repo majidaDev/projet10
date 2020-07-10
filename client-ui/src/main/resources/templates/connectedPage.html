@@ -19,6 +19,8 @@
             <div th:if="${messageSuccess != null}" th:text="${messageSuccess}" class="alert alert-success" role="alert"
                  style="margin: 5px;">
             </div>
+            <div th:if="${messageFail != null}" th:text= "${messageFail}" class="alert alert-warning" role="alert" style="margin: 5px;">
+            </div>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="comments-tab" data-toggle="tab" href="#loans"
@@ -57,8 +59,10 @@
                                                     <td>
                                                         <p th:if="${loan.isSecondLoan == 1}">Vous ne pouvez pas
                                                             emprunter (second emprunt déjà effectué)</p>
+                                                        <!--<p th:if="${today.after(loanRenewal.getDeadline())}">Vous ne pouvez pas
+                                                            emprunter (La date de retour est déja passée)</p>-->
                                                         <p th:if="${loan.isSecondLoan != 1}">
-                                                            <a th:href="@{/extendLoan/{path}(path=${loan.id})}">
+                                                            <a th:href="@{/renewalLoan/{path}(path=${loan.id})}">
                                                                 <button type="button" class="btn btn-primary">
                                                                     Prolonger
                                                                 </button>
@@ -83,39 +87,48 @@
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="reservations" role="tabpanel" aria-labelledby="loans-tab">
+                <div class="tab-pane fade show active" id="loans" role="tabpanel" aria-labelledby="loans-tab">
                     <div class="card mb-3" style="margin-top:10px;">
                         <div class="row no-gutters">
                             <div class="col-md-12">
                                 <div class="card-body">
-                                    <div th:if="${#lists.isEmpty(reservations)}">Vous n'avez pas de réservation en
-                                        cours.
+                                    <div th:if="${#lists.isEmpty(reservations)}">Vous n'avez pas de resérvation en cours
+                                        :)
                                     </div>
                                     <ul>
-                                        <span th:each="reservation : ${reservations}" th:switch="${reservation.status}">
-      													<div class="list-group-item list-group-item-action flex-column align-items-start mb-3"
-                                                             th:case="'Réservation en attente'">
-      														<div class="d-flex w-100 justify-content-around border-bottom">
-    															<h5 class="mb-1"
-                                                                    th:text="${reservation.bookTitle}"></h5>
-	    													</div>
-    														<br/>
-    														<p class="mb-1" th:switch="${reservation.deadline}">
-																<span th:case="'01/01/2001'"></span>
-																<span th:case="*"> Date prochaine de fin de prêt : <span
-                                                                        th:text="${reservation.deadline}"></span></span>
-															</p>
-    														<p class="mb-1">Votre position dans la liste d'attente : <span
-                                                                    th:text="${reservation.position}"></span></p>
-    														<a class="btn btn-info btn-sm btn-block"
-                                                               th:href="@{/reservation/${reservation.id}/delete-reservation}"
-                                                               role="button">Annuler cette réservation</a>
-      													</div>
-
-      													<span th:case="*">
-      														<p class="mb-1">Vous n'avez pas de réservation en cours.</p>
-      													</span>
-      												</span>
+                                        <div class=" table-responsive-sm table-responsive-md table-responsive-lg">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Livre</th>
+                                                    <th scope="col">Date prochaine de fin de prêt</th>
+                                                    <th scope="col">Votre Position dans la liste d'attente:</th>
+                                                    <th scope="col">Annuler</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="reservation:${reservations}">
+                                                   <td scope="row">
+                                                        <p th:text="${reservation.bookName}"></p>
+                                                    </td>
+                                                   <td>
+                                                        <p th:text="${reservation.deadline}"></p>
+                                                    </td>
+                                                    <td><p th:text="${reservation.position}"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Vous pouvez
+                                                            annuler cette resérvation</p>
+                                                        <a th:href="@{/cancelReservation/{path}(path=${reservation.id})}">
+                                                            <button type="button" class="btn btn-primary">
+                                                                Annuler
+                                                            </button>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </ul>
                                 </div>
                             </div>
@@ -125,7 +138,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 <footer th:insert="~{template :: footer}"></footer>
 </body>

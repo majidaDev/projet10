@@ -122,6 +122,15 @@ public interface MicroserviceBookProxy {
     @ResponseBody
     List<Reservation> listreservations();
 
+
+    /**
+     * Get all Reservations by person id
+     * @param personId
+     * @return Set<Reservation>
+     */
+    @RequestMapping(value = {"/microservice-book/myReservations/{personId}"}, method = RequestMethod.GET)
+    List<Reservation> getReservationsById(@PathVariable Long personId);
+
 /**
  * add  reservation
  *
